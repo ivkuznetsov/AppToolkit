@@ -49,7 +49,7 @@ open class AlertBarView: UIView {
     
     open override func awakeFromNib() {
         super.awakeFromNib()
-        textLabel.superview?.layer.cornerRadius = 6.0
+        textLabel.superview?.layer.cornerRadius = 8.0
     }
     
     open func hide() {
