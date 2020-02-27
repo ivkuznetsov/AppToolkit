@@ -17,23 +17,23 @@ public class Alert: NSObject {
         return Bundle.main.infoDictionary!["CFBundleDisplayName"] as? String ?? Bundle.main.infoDictionary!["CFBundleName"] as! String
     }()
     
-    @objc public static func present(_ message: String?, on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult @objc public static func present(_ message: String?, on viewController: UIViewController?) -> UIAlertController {
         return present(title: defaultTitle, message: message, on: viewController)
     }
     
-    @objc public static func present(title: String?, message: String?, on viewCotnroller: UIViewController?) -> UIAlertController {
+    @discardableResult @objc public static func present(title: String?, message: String?, on viewCotnroller: UIViewController?) -> UIAlertController {
         return present(title: title, message: message, cancel: ("OK", nil), other: [], on: viewCotnroller)
     }
     
-    public static func present(_ message: String?, cancel: String, other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult public static func present(_ message: String?, cancel: String, other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
         return present(message, cancel: (cancel, nil), other: other, on: viewController)
     }
     
-    public static func present(_ message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult public static func present(_ message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
         return present(title: defaultTitle, message: message, cancel: cancel, other: other, on: viewController)
     }
     
-    public static func present(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult public static func present(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancel.0, style: .cancel) { (_) in
             cancel.1?()
@@ -52,11 +52,11 @@ public extension Alert {
     
     fileprivate static var associatedActions: [UITextField : UIAlertAction] = [:]
     
-    static func present(_ message: String?, cancel: (String, (()->())?), other: [(String, (([UITextField])->())?)], fieldsSetup: [(UITextField)->()], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult static func present(_ message: String?, cancel: (String, (()->())?), other: [(String, (([UITextField])->())?)], fieldsSetup: [(UITextField)->()], on viewController: UIViewController?) -> UIAlertController {
         return present(title: defaultTitle, message: message, cancel: cancel, other: other, fieldsSetup: fieldsSetup, on: viewController)
     }
     
-    static func present(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (([UITextField])->())?)], fieldsSetup: [(UITextField)->()], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult static func present(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (([UITextField])->())?)], fieldsSetup: [(UITextField)->()], on viewController: UIViewController?) -> UIAlertController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -110,11 +110,11 @@ public extension Alert {
 
 public extension Alert {
     
-    static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, on view: UIView, inRect: CGRect) -> UIAlertController {
+    @discardableResult static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, on view: UIView, inRect: CGRect) -> UIAlertController {
         return presentSheet(title: title, message: message, cancel: cancel, other: other, destructive: destructive, item: view, inRect: inRect, on: nil)
     }
     
-    static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, barButton: UIBarButtonItem, on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, barButton: UIBarButtonItem, on viewController: UIViewController?) -> UIAlertController {
         return presentSheet(title: title, message: message, cancel: cancel, other: other, destructive: destructive, item: barButton, inRect: CGRect.zero, on: viewController)
     }
     
@@ -151,11 +151,11 @@ public extension Alert {
 @objc public extension Alert {
     
     @available(swift, obsoleted: 1.0)
-    static func present(_ message: String?, cancel: AMake, other: [AMake], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult static func present(_ message: String?, cancel: AMake, other: [AMake], on viewController: UIViewController?) -> UIAlertController {
         return present(title: defaultTitle, message: message, cancel: cancel, other: other, on: viewController)
     }
     
-    static func present(title: String?, message: String?, cancel: AMake, other: [AMake], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult static func present(title: String?, message: String?, cancel: AMake, other: [AMake], on viewController: UIViewController?) -> UIAlertController {
         let others: [(String, (()->())?)] = other.map { (other) in
             return (other.title, other.closure)
         }
@@ -165,7 +165,7 @@ public extension Alert {
     typealias ActionBlock = ()->()
     
     @available(swift, obsoleted: 1.0)
-    static func presentSheet(title: String?, message: String?, cancel: AMake, other: [AMake], destructive: Int, on view: UIView, inRect: CGRect) -> UIAlertController {
+    @discardableResult static func presentSheet(title: String?, message: String?, cancel: AMake, other: [AMake], destructive: Int, on view: UIView, inRect: CGRect) -> UIAlertController {
         let others: [(String, (()->())?)] = other.map { (other) in
             return (other.title, other.closure)
         }
@@ -173,7 +173,7 @@ public extension Alert {
     }
     
     @available(swift, obsoleted: 1.0)
-    static func presentSheet(title: String?, message: String?, cancel: AMake, other: [AMake], destructive: Int, barButton: UIBarButtonItem, on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult static func presentSheet(title: String?, message: String?, cancel: AMake, other: [AMake], destructive: Int, barButton: UIBarButtonItem, on viewController: UIViewController?) -> UIAlertController {
         let others: [(String, (()->())?)] = other.map { (other) in
             return (other.title, other.closure)
         }
