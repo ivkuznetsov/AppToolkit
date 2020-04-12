@@ -15,6 +15,7 @@
 @property (nonatomic) NSTextContainer *textContainer;
 @property (nonatomic) NSAttributedString *backupAttributedText;
 @property (nonatomic) NSMutableSet *defaultRanges;
+@property (nonatomic) UIFont *originalFont;
 
 @end
 
@@ -35,6 +36,7 @@
 }
 
 - (void)checkInitialization {
+    _originalFont = self.font;
     _handlerDictionary = [NSMutableDictionary new];
     _defaultRanges = [NSMutableSet set];
   //  self.lineBreakMode = NSLineBreakByWordWrapping;
@@ -105,12 +107,18 @@
     }
 }
 
+- (void)setFont:(UIFont *)font {
+    _originalFont = font;
+    [super setFont:font];
+}
+
 - (void)setText:(NSString *)text {
     [self clearActions];
     [super setText:text];
 }
     
 - (void)clearActions {
+    [super setFont:_originalFont];
     [_handlerDictionary removeAllObjects];
     [_defaultRanges removeAllObjects];
 }
