@@ -10,10 +10,10 @@
 
 @interface UIColor (SSToolkitAdditions)
 
-@property (nonatomic, readonly) CGFloat red;
-@property (nonatomic, readonly) CGFloat green;
-@property (nonatomic, readonly) CGFloat blue;
-@property (nonatomic, readonly) CGFloat alpha;
+@property (nonatomic, readonly) CGFloat redValue;
+@property (nonatomic, readonly) CGFloat greenValue;
+@property (nonatomic, readonly) CGFloat blueValue;
+@property (nonatomic, readonly) CGFloat alphaValue;
 
 + (UIColor *)colorWithHex:(NSString *)hex;
 - (NSString *)hexValue;
