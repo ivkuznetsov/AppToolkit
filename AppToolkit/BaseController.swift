@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  BaseController.swift
 //  AppToolkit
 //
 //  Created by Ilya Kuznetsov on 12/20/19.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc(ATBaseViewController)
-open class BaseViewController: UIViewController {
+@objc(ATBaseController)
+open class BaseController: UIViewController {
     
     public static var closeTitle: String?
     

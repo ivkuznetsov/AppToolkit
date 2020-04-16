@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-open class WebViewController: BaseViewController, WKNavigationDelegate {
+open class WebViewController: BaseController, WKNavigationDelegate {
     
     open var onlyLandscape: Bool = false
     public static var processNavigation: ((URL)->())?

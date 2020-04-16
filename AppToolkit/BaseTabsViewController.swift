@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(ATBaseTabsViewController)
-open class BaseTabsViewController: BaseViewController {
+open class BaseTabsViewController: BaseController {
     
     open var viewControllers: [UIViewController]!
     open private(set) var currentViewController: UIViewController?

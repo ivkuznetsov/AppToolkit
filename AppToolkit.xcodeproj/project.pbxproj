@@ -150,7 +150,7 @@
 		D7949C1E1FCAAD1E000D2C4F /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C1D1FCAAD1E000D2C4F /* Table.swift */; };
 		D7949C201FCB35A5000D2C4F /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C1F1FCB35A5000D2C4F /* BaseTableViewCell.swift */; };
 		D7949C221FCB38C5000D2C4F /* NoObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C211FCB38C5000D2C4F /* NoObjectsView.swift */; };
-		D7949C241FCB3A5D000D2C4F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C231FCB3A5D000D2C4F /* BaseViewController.swift */; };
+		D7949C241FCB3A5D000D2C4F /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C231FCB3A5D000D2C4F /* BaseController.swift */; };
 		D7949C261FCB3F9E000D2C4F /* OperationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C251FCB3F9E000D2C4F /* OperationHelper.swift */; };
 		D7949C291FCB5CF7000D2C4F /* AlerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C281FCB5CF7000D2C4F /* AlerBarView.swift */; };
 		D7949C2B1FCB5EE4000D2C4F /* PagingTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C2A1FCB5EE4000D2C4F /* PagingTable.swift */; };
@@ -359,7 +359,7 @@
 		D7949C1D1FCAAD1E000D2C4F /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		D7949C1F1FCB35A5000D2C4F /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		D7949C211FCB38C5000D2C4F /* NoObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoObjectsView.swift; sourceTree = "<group>"; };
-		D7949C231FCB3A5D000D2C4F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D7949C231FCB3A5D000D2C4F /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		D7949C251FCB3F9E000D2C4F /* OperationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationHelper.swift; sourceTree = "<group>"; };
 		D7949C281FCB5CF7000D2C4F /* AlerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlerBarView.swift; sourceTree = "<group>"; };
 		D7949C2A1FCB5EE4000D2C4F /* PagingTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingTable.swift; sourceTree = "<group>"; };
@@ -462,7 +462,7 @@
 				D7E1BA5A1FEB04A600BE8266 /* Tabs */,
 				593F49BF1EC8C9E80030BEBE /* PagingClasses */,
 				592061181E3905F30066BE0D /* OperationHelper */,
-				D7949C231FCB3A5D000D2C4F /* BaseViewController.swift */,
+				D7949C231FCB3A5D000D2C4F /* BaseController.swift */,
 				D7F324A51FDA8D3A0038F1C4 /* Make.swift */,
 				592060EB1E38E26C0066BE0D /* AppToolkit.h */,
 				D78098E01FD979910071B9FD /* AppToolkitObjC.h */,
@@ -998,7 +998,7 @@
 				D73EE4B72258F06200D9FD7A /* SDImageGIFCoder.m in Sources */,
 				D73EE48F2258F06200D9FD7A /* SDWebImageTransition.m in Sources */,
 				D730FDA01FD6EF54002D9F61 /* FadeButton.swift in Sources */,
-				D7949C241FCB3A5D000D2C4F /* BaseViewController.swift in Sources */,
+				D7949C241FCB3A5D000D2C4F /* BaseController.swift in Sources */,
 				D73EE4BD2258F06200D9FD7A /* SDWebImageCompat.m in Sources */,
 				D73EE4A32258F06200D9FD7A /* UIImage+MemoryCacheCost.m in Sources */,
 				D73EE4722258F06200D9FD7A /* SDWebImageError.m in Sources */,
