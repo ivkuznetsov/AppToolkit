@@ -86,14 +86,14 @@
 	
 	// Add alpha
 	if (hex && includeAlpha) {
-		hex = [hex stringByAppendingFormat:@"%02lx", (unsigned long)(self.alpha * 255.0f)];
+		hex = [hex stringByAppendingFormat:@"%02lx", (unsigned long)(self.alphaValue * 255.0f)];
 	}
 	
 	// Unsupported color space
 	return hex;
 }
 
-- (CGFloat)red {
+- (CGFloat)redValue {
 	CGColorRef color = self.CGColor;
 	if (CGColorSpaceGetModel(CGColorGetColorSpace(color)) != kCGColorSpaceModelRGB) {
 		return -1.0f;
@@ -102,7 +102,7 @@
 	return components[0];
 }
 
-- (CGFloat)green {
+- (CGFloat)greenValue {
 	CGColorRef color = self.CGColor;
 	if (CGColorSpaceGetModel(CGColorGetColorSpace(color)) != kCGColorSpaceModelRGB) {
 		return -1.0f;
@@ -111,7 +111,7 @@
 	return components[1];
 }
 
-- (CGFloat)blue {
+- (CGFloat)blueValue {
 	CGColorRef color = self.CGColor;
 	if (CGColorSpaceGetModel(CGColorGetColorSpace(color)) != kCGColorSpaceModelRGB) {
 		return -1.0f;
@@ -120,7 +120,7 @@
 	return components[2];
 }
 
-- (CGFloat)alpha {
+- (CGFloat)alphaValue {
 	return CGColorGetAlpha(self.CGColor);
 }
 
