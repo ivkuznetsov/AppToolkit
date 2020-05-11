@@ -414,6 +414,9 @@ extension Table: UITableViewDataSource {
 extension Table: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if objects.count <= indexPath.row {
+            return
+        }
         let object = objects[indexPath.row] as Any // swift bug workaround
         
         var result = delegate?.action?(object: object, table: self)
