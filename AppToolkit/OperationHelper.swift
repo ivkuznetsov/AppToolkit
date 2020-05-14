@@ -24,7 +24,7 @@ public protocol Cancellable {
 extension URLSessionTask: Cancellable { }
 
 public typealias Progress = (Double)->()
-public typealias Operation = (Cancellable)->()
+public typealias OperationHandler = (Cancellable)->()
 public typealias Completion = (Any?, Error?)->()
 
 @objcMembers
@@ -87,7 +87,7 @@ open class OperationHelper: StaticSetupObject {
     
     // progress indicator becomes visible on first Progress block performing
     // 'key' is needed to cancel previous launched operation with the same key, you can pass nil if you don't need such functional
-    @objc open func run(_ closure: @escaping (@escaping Completion, @escaping Operation, @escaping Progress)->(), completion: Completion?, loading: LoadingType, key: String?) {
+    @objc open func run(_ closure: @escaping (@escaping Completion, @escaping OperationHandler, @escaping Progress)->(), completion: Completion?, loading: LoadingType, key: String?) {
         
         assert(loading != .translucent || processTranslucentError != nil, "_processTranslucentError block must be set to use LoadingTypeTranslucent")
         
