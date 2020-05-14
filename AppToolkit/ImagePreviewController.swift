@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(ATImagePreviewController)
-open class ImagePreviewController: BaseViewController {
+open class ImagePreviewController: BaseController {
     
     open var image: UIImage
     open var scrollView: ATPreviewScrollView!
