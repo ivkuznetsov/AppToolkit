@@ -50,6 +50,7 @@ FOUNDATION_EXPORT const unsigned char AppToolkitVersionString[];
 #import <AppToolkit/SDAnimatedImageView+WebCache.h>
 #import <AppToolkit/SDWebImageDownloaderOperation.h>
 #import <AppToolkit/NSData+ImageContentType.h>
+#import <AppToolkit/SDWebImageManager.h>
 
 //collection helper
 #import <AppToolkit/UICollectionView+Reloading.h>
