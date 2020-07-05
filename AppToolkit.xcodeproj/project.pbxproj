@@ -164,7 +164,7 @@
 		D7949C4C1FCDE4F2000D2C4F /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C4B1FCDE4F2000D2C4F /* CollectionView.swift */; };
 		D7949C4E1FCDE6E7000D2C4F /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C4D1FCDE6E7000D2C4F /* Collection.swift */; };
 		D7949C501FCE0B19000D2C4F /* PagingCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C4F1FCE0B19000D2C4F /* PagingCollection.swift */; };
-		D7949C541FCE15C3000D2C4F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C531FCE15C3000D2C4F /* Notification.swift */; };
+		D7949C541FCE15C3000D2C4F /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C531FCE15C3000D2C4F /* AppNotification.swift */; };
 		D7949C561FCE1725000D2C4F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C551FCE1725000D2C4F /* NotificationManager.swift */; };
 		D7949C581FCEB081000D2C4F /* NSManagedObject+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */; };
 		D7BE34F423AD09C8006B33B7 /* UntouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */; };
@@ -374,7 +374,7 @@
 		D7949C4D1FCDE6E7000D2C4F /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		D7949C4F1FCE0B19000D2C4F /* PagingCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCollection.swift; sourceTree = "<group>"; };
 		D7949C511FCE13B8000D2C4F /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		D7949C531FCE15C3000D2C4F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		D7949C531FCE15C3000D2C4F /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		D7949C551FCE1725000D2C4F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Notifications.swift"; sourceTree = "<group>"; };
 		D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntouchableView.swift; sourceTree = "<group>"; };
@@ -503,7 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				D7949C511FCE13B8000D2C4F /* Observable.swift */,
-				D7949C531FCE15C3000D2C4F /* Notification.swift */,
+				D7949C531FCE15C3000D2C4F /* AppNotification.swift */,
 				D7949C551FCE1725000D2C4F /* NotificationManager.swift */,
 				D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */,
 			);
@@ -943,7 +943,7 @@
 				D747AC4F1FFFC456000282EA /* ImagePreviewController.swift in Sources */,
 				D73EE4B82258F06200D9FD7A /* SDImageCachesManager.m in Sources */,
 				D7E1BA641FEB04FE00BE8266 /* TabsViewButton.swift in Sources */,
-				D7949C541FCE15C3000D2C4F /* Notification.swift in Sources */,
+				D7949C541FCE15C3000D2C4F /* AppNotification.swift in Sources */,
 				D7FCA6051FA246370005DAEB /* NSDateAdditions.m in Sources */,
 				D7F324A61FDA8D3A0038F1C4 /* Make.swift in Sources */,
 				D7949C1E1FCAAD1E000D2C4F /* Table.swift in Sources */,

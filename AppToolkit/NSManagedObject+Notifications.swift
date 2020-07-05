@@ -11,7 +11,7 @@ import CoreData
 
 public extension NSManagedObject {
 
-    @objc static func add(observer: AnyObject, closure: @escaping (Notification?)->()) {
+    @objc static func add(observer: AnyObject, closure: @escaping (AppNotification?)->()) {
         self.add(observer: observer, closure: closure, classes: [self])
     }
     
@@ -19,7 +19,7 @@ public extension NSManagedObject {
         self.remove(observer: observer, classes: [self])
     }
     
-    @objc static func add(observer: AnyObject, closure: @escaping (Notification?)->(), classes: [NSManagedObject.Type]) {
+    @objc static func add(observer: AnyObject, closure: @escaping (AppNotification?)->(), classes: [NSManagedObject.Type]) {
         NotificationManager.shared.add(observer: observer, closure: closure, names: classNamesFor(classes: classes))
     }
     
@@ -27,7 +27,7 @@ public extension NSManagedObject {
         NotificationManager.shared.remove(observer: observer, names: classNamesFor(classes: classes))
     }
     
-    @objc static func postUpdatesFor(classes: [NSManagedObject.Type], notification: Notification?) {
+    @objc static func postUpdatesFor(classes: [NSManagedObject.Type], notification: AppNotification?) {
         NotificationManager.shared.postNotification(names: classNamesFor(classes: classes), notification: notification)
     }
     

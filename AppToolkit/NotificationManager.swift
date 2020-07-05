@@ -16,9 +16,9 @@ private struct Observer: Equatable {
     
     weak var object: AnyObject?
     var uid: String
-    var closure: (Notification?)->()
+    var closure: (AppNotification?)->()
     
-    init(object: AnyObject, closure: @escaping (Notification?)->(), uid: String) {
+    init(object: AnyObject, closure: @escaping (AppNotification?)->(), uid: String) {
         self.object = object
         self.closure = closure
         self.uid = uid
@@ -32,7 +32,7 @@ open class NotificationManager: NSObject {
     
     private var dictionary: [AnyHashable:[Observer]] = [:]
     
-    @objc open func add(observer: AnyObject, closure: @escaping (Notification?)->(), names: [String]) {
+    @objc open func add(observer: AnyObject, closure: @escaping (AppNotification?)->(), names: [String]) {
         let uid = UUID().uuidString
         
         for name in names {
@@ -56,7 +56,7 @@ open class NotificationManager: NSObject {
         }
     }
     
-    @objc open func postNotification(names: [String], notification: Notification?) {
+    @objc open func postNotification(names: [String], notification: AppNotification?) {
         runOnMainThread {
             var postedUpdates: [Observer] = []
             

@@ -1,5 +1,5 @@
 //
-//  Notification.swift
+//  AppNotification.swift
 //  AppToolkit
 //
 //  Created by Ilya Kuznetsov on 12/20/19.
@@ -10,7 +10,7 @@ import Foundation
 
 @objcMembers
 @objc(ATNotification)
-public class Notification: NSObject {
+public class AppNotification: NSObject {
     
     public var created: Set<AnyHashable>?
     public var updated: Set<AnyHashable>?
