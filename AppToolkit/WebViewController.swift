@@ -102,9 +102,7 @@ open class WebViewController: BaseController, WKNavigationDelegate {
 }
 
 public extension WKWebView {
-    private struct key {
-        static let scale = unsafeBitCast(#selector(getter: UIWebView.scalesPageToFit), to: UnsafeRawPointer.self)
-    }
+    
     private var sourceOfUserScript: String {
         return "(function(){\n" +
             "    var head = document.getElementsByTagName('head')[0];\n" +
@@ -126,22 +124,22 @@ public extension WKWebView {
     }
     var scalesPageToFit: Bool {
         get {
-            return objc_getAssociatedObject(self, key.scale) != nil
+            return objc_getAssociatedObject(self, "scalesPageToFit") != nil
         }
         set {
             if newValue {
-                if objc_getAssociatedObject(self, key.scale) != nil {
+                if objc_getAssociatedObject(self, "scalesPageToFit") != nil {
                     return
                 }
                 let time = WKUserScriptInjectionTime.atDocumentEnd
                 let script = WKUserScript(source: sourceOfUserScript, injectionTime: time, forMainFrameOnly: true)
                 configuration.userContentController.addUserScript(script)
-                objc_setAssociatedObject(self, key.scale, script, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, "scalesPageToFit", script, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 if url != nil {
                     evaluateJavaScript(sourceOfUserScript, completionHandler: nil)
                 }
-            } else if let script = objc_getAssociatedObject(self, key.scale) as? WKUserScript {
-                objc_setAssociatedObject(self, key.scale, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            } else if let script = objc_getAssociatedObject(self, "scalesPageToFit") as? WKUserScript {
+                objc_setAssociatedObject(self, "scalesPageToFit", nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 configuration.userContentController.removeUserScript(script: script)
                 if url != nil {
                     let source = "(function(){\n" +
