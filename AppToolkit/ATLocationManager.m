@@ -42,11 +42,21 @@
     _locationManager = [CLLocationManager new];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+#if TARGET_OS_IPHONE
     _locationManager.headingOrientation = CLDeviceOrientationFaceUp;
+#endif
     _locationManager.distanceFilter = 0.01;
     _authorizationStatus = CLLocationManager.authorizationStatus;
     if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        
+#if TARGET_OS_IPHONE
         [_locationManager requestWhenInUseAuthorization];
+#else
+        if (@available(macOS 10.15, *)) {
+            [_locationManager requestAlwaysAuthorization];
+        }
+#endif
     }
 }
 
@@ -82,9 +92,11 @@
 		if (![_headingObservers containsObject:value]) {
 			[_headingObservers addObject:value];
 		}
+#if TARGET_OS_IPHONE
         if (_headingObservers.count == 1 && [CLLocationManager headingAvailable]) {
             [_locationManager startUpdatingHeading];
         }
+#endif
         [nc addObserver:observer selector:selector name:kLocationHeadingUpdate object:nil];
     }
     if (options & LocationManagerLocationUpdate) {
@@ -106,9 +118,11 @@
 	NSValue *value = [NSValue valueWithNonretainedObject:observer];
     if (options & LocationManagerHeadingUpdate) {
 		[_headingObservers removeObject:value];
+#if TARGET_OS_IPHONE
         if (_headingObservers.count < 1) {
             [_locationManager stopUpdatingHeading];
         }
+#endif
         [nc removeObserver:observer name:kLocationHeadingUpdate object:nil];
     }
     if (options & LocationManagerLocationUpdate) {
@@ -126,11 +140,14 @@
     _authorizationStatus = status;
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationAccessUpdate object:self];
     
+#if TARGET_OS_IPHONE
     if ([CLLocationManager headingAvailable]) {
         [_locationManager startUpdatingHeading];
     }
+#endif
 }
 
+#if TARGET_OS_IPHONE
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading {
     _heading = heading;
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationHeadingUpdate object:self];
@@ -139,6 +156,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
+#endif
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     _locationFailed = NO;

@@ -6,9 +6,17 @@
 //  Copyright © 2019 Ilya Kuznetsov. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
-@objc public extension UIView {
+#else
+import AppKit
+
+#endif
+
+@objc public extension View {
+    
+    #if os(iOS)
     
     var imageRepresentation: UIImage {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
@@ -18,19 +26,29 @@ import UIKit
         return image!
     }
     
+    private var viewLayer: CALayer { return layer }
+    
+    #else
+    
+    private var viewLayer: CALayer { return layer! }
+    
+    #endif
+    
     func addFadeTransition() {
         addFadeTransition(duration: 0.15)
     }
     
+    
+    
     func addFadeTransition(duration: Double) {
-        if layer.animation(forKey: "fade") != nil {
+        if viewLayer.animation(forKey: "fade") != nil {
             return
         }
         let transition = CATransition()
         transition.type = .fade
         transition.duration = duration
         transition.fillMode = .both
-        layer.add(transition, forKey: "fade")
+        viewLayer.add(transition, forKey: "fade")
     }
     
     func addPushTransition() {
@@ -39,7 +57,7 @@ import UIKit
         transition.subtype = .fromRight
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
-        layer.add(transition, forKey: "transition")
+        viewLayer.add(transition, forKey: "transition")
     }
     
     func addPopTransition() {
@@ -48,7 +66,7 @@ import UIKit
         transition.subtype = .fromLeft
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
-        layer.add(transition, forKey: "transition")
+        viewLayer.add(transition, forKey: "transition")
     }
     
     func addMoveOutTransition() {
@@ -57,7 +75,7 @@ import UIKit
         transition.subtype = .fromLeft
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
-        layer.add(transition, forKey: "transition")
+        viewLayer.add(transition, forKey: "transition")
     }
     
     func addPresentTransition() {
@@ -66,7 +84,7 @@ import UIKit
         transition.subtype = .fromTop
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
-        layer.add(transition, forKey: "transition")
+        viewLayer.add(transition, forKey: "transition")
     }
     
     func addDismissTransition() {
@@ -75,6 +93,6 @@ import UIKit
         transition.subtype = .fromBottom
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
-        layer.add(transition, forKey: "transition")
+        viewLayer.add(transition, forKey: "transition")
     }
 }

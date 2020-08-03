@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ilya Kuznetsov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objc(ATBaseController)
 open class BaseController: UIViewController {

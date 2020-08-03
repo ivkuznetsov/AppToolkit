@@ -10,7 +10,7 @@
  Provides extensions to `NSURL` for various common tasks.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface NSURL (SSToolkitAdditions)
 
