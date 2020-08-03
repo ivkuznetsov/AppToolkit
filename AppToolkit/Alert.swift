@@ -6,6 +6,59 @@
 //  Copyright © 2019 Ilya Kuznetsov. All rights reserved.
 //
 
+#if os(macOS)
+
+import Cocoa
+
+public class Alert {
+    
+    @discardableResult @objc public static func present(_ message: String?, on window: NSWindow?) -> NSAlert {
+        return present(text: nil, message: message, on: window)
+    }
+    
+    @discardableResult @objc public static func present(text: String?, message: String?, on window: NSWindow?) -> NSAlert {
+        return present(text: text, message: message, cancel: ("OK", nil), other: [], on: window)
+    }
+    
+    @discardableResult public static func present(_ message: String?, cancel: String, other: [(String, (()->())?)], on window: NSWindow?) -> NSAlert {
+        return present(message, cancel: (cancel, nil), other: other, on: window)
+    }
+    
+    @discardableResult public static func present(_ message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on window: NSWindow?) -> NSAlert {
+        return present(text: nil, message: message, cancel: cancel, other: other, on: window)
+    }
+    
+    @discardableResult public static func present(text: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on window: NSWindow?) -> NSAlert {
+        
+        let alert = NSAlert()
+        alert.messageText = message ?? ""
+        other.forEach { (item) in
+            alert.addButton(withTitle: item.0)
+        }
+        alert.addButton(withTitle: cancel.0)
+        
+        let complete: (NSApplication.ModalResponse)->() = { (result) in
+            if result == .cancel || result == .alertFirstButtonReturn {
+                cancel.1?()
+            } else if result == .alertSecondButtonReturn {
+                other[0].1?()
+            } else if result == .alertThirdButtonReturn {
+                other[1].1?()
+            }
+        }
+        
+        if let window = window {
+            alert.beginSheetModal(for: window, completionHandler: complete)
+        } else {
+            complete(alert.runModal())
+        }
+        return alert
+    }
+}
+
+
+#else
+
 import UIKit
 
 @objc(ATAlert)
@@ -180,3 +233,5 @@ public extension Alert {
         return presentSheet(title: title, message: message, cancel: (cancel.title, cancel.closure), other: others, destructive: destructive, item: barButton, inRect: CGRect.zero, on: viewController)
     }
 }
+
+#endif

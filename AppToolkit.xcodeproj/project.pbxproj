@@ -170,6 +170,7 @@
 		D7949C541FCE15C3000D2C4F /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C531FCE15C3000D2C4F /* AppNotification.swift */; };
 		D7949C561FCE1725000D2C4F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C551FCE1725000D2C4F /* NotificationManager.swift */; };
 		D7949C581FCEB081000D2C4F /* NSManagedObject+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */; };
+		D7AE7CF724D85AAE000B1118 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CB5CE51FE5BBD900341E60 /* Alert.swift */; };
 		D7BE34F423AD09C8006B33B7 /* UntouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */; };
 		D7BE34F623AD0A24006B33B7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F523AD0A24006B33B7 /* ReusableView.swift */; };
 		D7BE34F823AD0BC2006B33B7 /* LocalizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F723AD0BC1006B33B7 /* LocalizedButton.swift */; };
@@ -1160,6 +1161,7 @@
 				D7D1EB3624B9EE2A0004C774 /* ATLocationManager.m in Sources */,
 				D7D1EB3924B9EE530004C774 /* NSObject+ClassName.m in Sources */,
 				D7D1EB4524B9EF250004C774 /* AppNotification.swift in Sources */,
+				D7AE7CF724D85AAE000B1118 /* Alert.swift in Sources */,
 				D7D1EB4324B9EEFC0004C774 /* NSDateAdditions.m in Sources */,
 				D7D1EB4624B9EF2A0004C774 /* NotificationManager.swift in Sources */,
 				D7D1EB3724B9EE470004C774 /* String+Validation.swift in Sources */,
