@@ -32,6 +32,7 @@ public class Alert {
         
         let alert = NSAlert()
         alert.messageText = message ?? ""
+        alert.informativeText = text ?? ""
         other.forEach { (item) in
             alert.addButton(withTitle: item.0)
         }
