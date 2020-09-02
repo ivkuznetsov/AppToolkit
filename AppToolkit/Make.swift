@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ilya Kuznetsov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @available(swift, obsoleted: 1.0)
 @objc public class TMake: NSObject {

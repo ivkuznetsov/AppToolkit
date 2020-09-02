@@ -6,9 +6,21 @@
 //  Copyright © 2019 Ilya Kuznetsov. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
-public extension UITableView {
+public typealias TableView = UITableView
+public typealias TableViewAnimation = UITableView.RowAnimation
+
+#else
+import AppKit
+
+public typealias TableView = NSTableView
+public typealias TableViewAnimation = NSTableView.AnimationOptions
+
+#endif
+
+public extension TableView {
     
     private func printDuplicates(_ array: [AnyHashable]) {
         var allSet = Set<AnyHashable>()
@@ -22,7 +34,15 @@ public extension UITableView {
         }
     }
     
-    func reload(oldData: [AnyHashable], newData: [AnyHashable], deferred: (()->())?, updateObjects: (()->())?, addAnimation: UITableView.RowAnimation) {
+    private func indexPath(row: Int) -> IndexPath {
+        #if os(iOS)
+        return IndexPath(row: row, section: 0)
+        #else
+        return IndexPath(item: row, section: 0)
+        #endif
+    }
+    
+    func reload(oldData: [AnyHashable], newData: [AnyHashable], deferred: (()->())?, updateObjects: (()->())?, addAnimation: TableViewAnimation) {
         
         var toAdd: [IndexPath] = []
         var toDelete: [IndexPath] = []
@@ -40,13 +60,13 @@ public extension UITableView {
         let currentSet = NSMutableOrderedSet(array: oldData)
         for (index, object) in oldData.enumerated() {
             if !newDataSet.contains(object) {
-                toDelete.append(IndexPath(row: index, section: 0))
+                toDelete.append(indexPath(row: index))
                 currentSet.remove(object)
             }
         }
         for (index, object) in newData.enumerated() {
             if !oldDataSet.contains(object) {
-                toAdd.append(IndexPath(row: index, section: 0))
+                toAdd.append(indexPath(row: index))
                 currentSet.insert(object, at: index)
             }
         }
@@ -55,7 +75,7 @@ public extension UITableView {
         for (index, object) in newData.enumerated() {
             let oldDataIndex = currentSet.index(of: object)
             if index != oldDataIndex {
-                itemsToMove.append((from: IndexPath(row: oldData.firstIndex(of: object)!, section: 0), to: IndexPath(row: index, section: 0)))
+                itemsToMove.append((from: indexPath(row: oldData.firstIndex(of: object)!), to: indexPath(row: index)))
             }
         }
         
@@ -64,17 +84,28 @@ public extension UITableView {
         updateObjects?()
         
         if !toDelete.isEmpty {
+            #if os(iOS)
             self.deleteRows(at: toDelete, with: .fade)
+            #else
+            self.removeRows(at: IndexSet(toDelete.map { $0.item }), withAnimation: .effectFade)
+            #endif
         }
         if !toAdd.isEmpty {
+            #if os(iOS)
             self.insertRows(at: toAdd, with: addAnimation)
+            #else
+            self.insertRows(at: IndexSet(toAdd.map { $0.item }), withAnimation: addAnimation)
+            #endif
         }
         if !itemsToMove.isEmpty {
             for couple in itemsToMove {
+                #if os(iOS)
                 self.moveRow(at: couple.from, to: couple.to)
+                #else
+                self.moveRow(at: couple.from.item, to: couple.to.item)
+                #endif
             }
         }
-        
         deferred?()
         
         self.endUpdates()
