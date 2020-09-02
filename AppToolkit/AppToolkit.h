@@ -57,7 +57,6 @@ FOUNDATION_EXPORT const unsigned char AppToolkitVersionString[];
 
 //custom views
 #import <AppToolkit/ATLinkLabel.h>
-#import <AppToolkit/ATPreviewScrollView.h>
 #import <AppToolkit/ATReusableView.h>
 
 //additions

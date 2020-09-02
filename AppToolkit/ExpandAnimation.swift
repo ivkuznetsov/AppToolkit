@@ -11,10 +11,10 @@ import UIKit
 @objc(ATExpandAnimation)
 open class ExpandAnimation: NSObject {
     
-    fileprivate var source: UIView
-    fileprivate var dismissingSource: UIImageView
-    fileprivate var customContainer: UIView?
-    fileprivate weak var viewController: UIViewController!
+    fileprivate let source: UIView
+    fileprivate let dismissingSource: UIImageView
+    fileprivate let customContainer: UIView?
+    weak var viewController: UIViewController?
     fileprivate var yTranslation: CGFloat = 0
     fileprivate var reversed: Bool = false
     fileprivate var location = CGPoint.zero
@@ -37,7 +37,7 @@ open class ExpandAnimation: NSObject {
         }
     }
     
-    fileprivate var imageView: UIImageView = {
+    fileprivate let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -45,7 +45,7 @@ open class ExpandAnimation: NSObject {
         return imageView
     }()
     
-    fileprivate var secondImageView: UIImageView = {
+    fileprivate let secondImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -53,7 +53,7 @@ open class ExpandAnimation: NSObject {
         return imageView
     }()
     
-    fileprivate var overlayView: UIView = {
+    fileprivate let overlayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         return view
@@ -62,14 +62,13 @@ open class ExpandAnimation: NSObject {
     fileprivate var pinchGR: UIPinchGestureRecognizer!
     fileprivate var panGR: UIPanGestureRecognizer!
     fileprivate var tapGR: UITapGestureRecognizer!
-    fileprivate var contentMode: UIView.ContentMode
+    fileprivate let contentMode: UIView.ContentMode
     var presenting: Bool = false
     
-    init(source: UIView, dismissingSource: UIImageView, customContainer: UIView?, viewController: UIViewController, contentMode: UIView.ContentMode) {
+    init(source: UIView, dismissingSource: UIImageView, customContainer: UIView?, contentMode: UIView.ContentMode) {
         self.source = source
         self.dismissingSource = dismissingSource
         self.customContainer = customContainer
-        self.viewController = viewController
         self.contentMode = contentMode
         super.init()
         
@@ -481,16 +480,10 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
 extension ExpandAnimation: UIGestureRecognizerDelegate {
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == pinchGR {
-            return pinchGR.scale < 1.0
-        }
-        return true
+        return gestureRecognizer != pinchGR || pinchGR.scale < 1.0
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == pinchGR || gestureRecognizer == panGR {
-            return false
-        }
-        return true
+        return gestureRecognizer != pinchGR && gestureRecognizer != panGR
     }
 }
