@@ -13,8 +13,6 @@
 		592061501E3A31850066BE0D /* NoObjectsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5920614F1E3A31850066BE0D /* NoObjectsView.xib */; };
 		592061651E3A62610066BE0D /* UICollectionView+Reloading.h in Headers */ = {isa = PBXBuildFile; fileRef = 592061631E3A62610066BE0D /* UICollectionView+Reloading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		592061661E3A62610066BE0D /* UICollectionView+Reloading.m in Sources */ = {isa = PBXBuildFile; fileRef = 592061641E3A62610066BE0D /* UICollectionView+Reloading.m */; };
-		592061B31E3B735F0066BE0D /* ATPreviewScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 592061B11E3B735F0066BE0D /* ATPreviewScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		592061B41E3B735F0066BE0D /* ATPreviewScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 592061B21E3B735F0066BE0D /* ATPreviewScrollView.m */; };
 		592061B91E3B7AC70066BE0D /* ATLinkLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 592061B71E3B7AC70066BE0D /* ATLinkLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		592061BA1E3B7AC70066BE0D /* ATLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 592061B81E3B7AC70066BE0D /* ATLinkLabel.m */; };
 		592061BD1E3B7F0F0066BE0D /* ATInputHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 592061BB1E3B7F0F0066BE0D /* ATInputHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,6 +169,7 @@
 		D7949C561FCE1725000D2C4F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C551FCE1725000D2C4F /* NotificationManager.swift */; };
 		D7949C581FCEB081000D2C4F /* NSManagedObject+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */; };
 		D7AE7CF724D85AAE000B1118 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CB5CE51FE5BBD900341E60 /* Alert.swift */; };
+		D7BDA8D624FF974D0015795F /* PreviewScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */; };
 		D7BE34F423AD09C8006B33B7 /* UntouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */; };
 		D7BE34F623AD0A24006B33B7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F523AD0A24006B33B7 /* ReusableView.swift */; };
 		D7BE34F823AD0BC2006B33B7 /* LocalizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F723AD0BC1006B33B7 /* LocalizedButton.swift */; };
@@ -248,8 +247,6 @@
 		592061641E3A62610066BE0D /* UICollectionView+Reloading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Reloading.m"; sourceTree = "<group>"; };
 		592061A81E3B6B5B0066BE0D /* OptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionCell.xib; sourceTree = "<group>"; };
 		592061AB1E3B6DA00066BE0D /* OptionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionsView.xib; sourceTree = "<group>"; };
-		592061B11E3B735F0066BE0D /* ATPreviewScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPreviewScrollView.h; sourceTree = "<group>"; };
-		592061B21E3B735F0066BE0D /* ATPreviewScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPreviewScrollView.m; sourceTree = "<group>"; };
 		592061B71E3B7AC70066BE0D /* ATLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLinkLabel.h; sourceTree = "<group>"; };
 		592061B81E3B7AC70066BE0D /* ATLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLinkLabel.m; sourceTree = "<group>"; };
 		592061BB1E3B7F0F0066BE0D /* ATInputHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATInputHelper.h; sourceTree = "<group>"; };
@@ -403,6 +400,7 @@
 		D7949C531FCE15C3000D2C4F /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		D7949C551FCE1725000D2C4F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Notifications.swift"; sourceTree = "<group>"; };
+		D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScrollView.swift; sourceTree = "<group>"; };
 		D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntouchableView.swift; sourceTree = "<group>"; };
 		D7BE34F523AD0A24006B33B7 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		D7BE34F723AD0BC1006B33B7 /* LocalizedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedButton.swift; sourceTree = "<group>"; };
@@ -559,8 +557,6 @@
 				D7BE34F523AD0A24006B33B7 /* ReusableView.swift */,
 				D7BE34F723AD0BC1006B33B7 /* LocalizedButton.swift */,
 				D7BE34F923AD0C65006B33B7 /* LocalizedLabel.swift */,
-				592061B11E3B735F0066BE0D /* ATPreviewScrollView.h */,
-				592061B21E3B735F0066BE0D /* ATPreviewScrollView.m */,
 				592061B71E3B7AC70066BE0D /* ATLinkLabel.h */,
 				592061B81E3B7AC70066BE0D /* ATLinkLabel.m */,
 				D73D8A4723AD22B700F6464E /* ATReusableView.h */,
@@ -687,6 +683,7 @@
 			children = (
 				D747AC521FFFC588000282EA /* ExpandAnimation.swift */,
 				D747AC4E1FFFC456000282EA /* ImagePreviewController.swift */,
+				D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */,
 			);
 			name = ImagePreviewController;
 			sourceTree = "<group>";
@@ -862,7 +859,6 @@
 				592060ED1E38E26C0066BE0D /* AppToolkit.h in Headers */,
 				D73EE4B32258F06200D9FD7A /* SDDiskCache.h in Headers */,
 				D73EE4CB2258F06200D9FD7A /* SDImageFrame.h in Headers */,
-				592061B31E3B735F0066BE0D /* ATPreviewScrollView.h in Headers */,
 				D73EE47C2258F06200D9FD7A /* UIImageView+WebCache.h in Headers */,
 				D73EE48C2258F06200D9FD7A /* UIView+WebCache.h in Headers */,
 				D73EE4A12258F06200D9FD7A /* SDWebImageIndicator.h in Headers */,
@@ -970,7 +966,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Ilya Kuznetsov";
 				TargetAttributes = {
 					592060E71E38E26C0066BE0D = {
@@ -1104,6 +1100,7 @@
 				D73EE4CA2258F06200D9FD7A /* SDWebImageDownloader.m in Sources */,
 				D7F324AD1FDA9AAC0038F1C4 /* OptionsView.swift in Sources */,
 				D73EE4732258F06200D9FD7A /* SDAnimatedImageView+WebCache.m in Sources */,
+				D7BDA8D624FF974D0015795F /* PreviewScrollView.swift in Sources */,
 				D73EE4D22258F06200D9FD7A /* SDImageGraphics.m in Sources */,
 				D73EE4E72258F65500D9FD7A /* NSData+ImageContentType.m in Sources */,
 				D73EE4B02258F06200D9FD7A /* SDWebImagePrefetcher.m in Sources */,
@@ -1132,7 +1129,6 @@
 				D73EE4E42258F06200D9FD7A /* UIColor+HexString.m in Sources */,
 				D73EE4D82258F06200D9FD7A /* SDImageAssetManager.m in Sources */,
 				D730FDAD1FD71B3D002D9F61 /* StaticSetup.swift in Sources */,
-				592061B41E3B735F0066BE0D /* ATPreviewScrollView.m in Sources */,
 				D730FDA21FD6F0E0002D9F61 /* BorderedButton.swift in Sources */,
 				D73EE4752258F06200D9FD7A /* UIImage+Transform.m in Sources */,
 				D73EE4992258F06200D9FD7A /* SDImageCodersManager.m in Sources */,

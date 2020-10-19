@@ -42,7 +42,7 @@ public extension View {
         var objects: [Any] = []
         
         #if os(iOS)
-        objects = bundle.loadNibNamed(nib, owner: owner, options: nil)
+        objects = bundle.loadNibNamed(nib, owner: owner, options: nil) ?? []
         #else
         var array: NSArray? = nil
         Bundle.main.loadNibNamed(nib, owner: self, topLevelObjects: &array)
