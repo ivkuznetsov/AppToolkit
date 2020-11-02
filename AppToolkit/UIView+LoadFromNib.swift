@@ -46,7 +46,7 @@ public extension View {
         #else
         var array: NSArray? = nil
         Bundle.main.loadNibNamed(nib, owner: self, topLevelObjects: &array)
-        objects = (array ?? []) as [Any]
+        objects = (array ?? []) as! [Any]
         #endif
         
         for object in objects {
