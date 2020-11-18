@@ -76,6 +76,14 @@ open class Collection: StaticSetupObject {
     
     open var setupViewContainer: ((ContainerCollectionCell)->())?
     
+    open var staticCellSize: CGSize? {
+        didSet {
+            if let size = staticCellSize {
+                layout?.itemSize = size
+            }
+        }
+    }
+    
     @objc public init(collection: CollectionView, delegate: CollectionDelegate) {
         super.init()
         self.collection = collection
@@ -207,8 +215,15 @@ open class Collection: StaticSetupObject {
     }
     
     open override func responds(to aSelector: Selector!) -> Bool {
+        if aSelector == #selector(collectionView(_:layout:sizeForItemAt:)), staticCellSize != nil {
+            return false
+        }
+        
         if !super.responds(to: aSelector) {
-            return delegate != nil ? (delegate?.responds(to: aSelector) ?? false) : false
+            if let delegate = delegate {
+                return delegate.responds(to: aSelector)
+            }
+            return false
         }
         return true
     }
