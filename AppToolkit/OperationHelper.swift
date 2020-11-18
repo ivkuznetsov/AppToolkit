@@ -68,7 +68,7 @@ open class OperationHelper: StaticSetupObject {
     open var failedBarViewType: AlertBarView.Type = AlertBarView.self
     private weak var failedBarView: AlertBarView?
     
-    open weak var view: UIView!
+    open weak var view: UIView?
     private var keyedOperations: [String:OperationToken] = [:]
     private var processing = Set<OperationToken>()
     private var loadingCounter = 0
@@ -169,6 +169,8 @@ open class OperationHelper: StaticSetupObject {
         if (error as NSError).code == NSURLErrorCancelled {
             return
         }
+        guard let view = view else { return }
+        
         if loading == .translucent {
             processTranslucentError(view, error, retry)
         } else if loading == .fullscreen {
@@ -181,6 +183,8 @@ open class OperationHelper: StaticSetupObject {
     }
     
     private func increament(loading: LoadingType) {
+        guard let view = view else { return }
+        
         if loading == .translucent || loading == .fullscreen {
             if loadingCounter == 0 {
                 loadingView = loadingViewType.present(in: view, animated: (loading == .translucent) && view.window != nil && failedView == nil)
