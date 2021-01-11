@@ -286,7 +286,10 @@
     if ([_delegate respondsToSelector:@selector(animateInsetChangeWithInsets:)]) {
         UIEdgeInsets insets = _scrollView.contentInset;
         insets.bottom -= _additionalBottomInset;
+        
+        CGPoint offset = _scrollView.contentOffset;
         [_delegate animateInsetChangeWithInsets:insets];
+        _scrollView.contentOffset = offset;
     }
     
     if (insetOffset > 0) {
