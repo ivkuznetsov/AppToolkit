@@ -383,6 +383,7 @@ extension Table: UITableViewDataSource {
             }
         }
         
+        cell.width = tableView.width
         cell.layoutIfNeeded()
         cell.separatorHidden = (indexPath.row == objects.count - 1) && table.tableFooterView != nil
         return cell

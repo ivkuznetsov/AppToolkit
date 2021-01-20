@@ -251,6 +251,9 @@
         }
         CGRect viewRect = [_scrollView convertRect:_scrollView.bounds toView:topView];
         CGFloat viewBottomOffset = [UIScreen mainScreen].bounds.size.height - (viewRect.origin.y + viewRect.size.height);
+        
+        viewBottomOffset += _scrollView.safeAreaInsets.bottom;
+                
         bottomOffset = MAX(0, bottomOffset - viewBottomOffset);
     }
     
