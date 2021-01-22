@@ -31,6 +31,7 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
     public var didScroll: (()->())?
     public var didEndScroll: (()->())?
     public var didZoomContinuous: (()->())?
+    public var customizeInsetsOnZoom: ((UIEdgeInsets)->(UIEdgeInsets))?
     public var minAspectLimit: CGFloat?
     public var maxAspectLimit: CGFloat?
     
@@ -214,7 +215,8 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
         if contentSize.height < bounds.size.height {
             top = (bounds.size.height - contentSize.height) * 0.5
         }
-        scrollView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        let insets = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        scrollView.contentInset = customizeInsetsOnZoom?(insets) ?? insets
         didZoomContinuous?()
     }
     

@@ -11,6 +11,8 @@ import UIKit
 @objc(ATBaseController)
 open class BaseController: UIViewController {
     
+    private var viewLayouted: Bool = false
+    
     public static var closeTitle: String?
     
     public init() {
@@ -68,5 +70,18 @@ open class BaseController: UIViewController {
     
     open func reloadView(_ animated: Bool) {
         
+    }
+    
+    open func performOnFirstLayout() {
+        
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !viewLayouted {
+            performOnFirstLayout()
+            viewLayouted = true
+        }
     }
 }

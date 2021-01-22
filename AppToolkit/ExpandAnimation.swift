@@ -20,8 +20,15 @@ open class ExpandAnimation: NSObject {
     fileprivate var location = CGPoint.zero
     fileprivate var interativeContext: UIViewControllerContextTransitioning?
     fileprivate var shouldEndGesture = false
+    public var allowTapToClose: Bool = true {
+        didSet {
+            if tapGR.isEnabled && !allowTapToClose {
+                tapGR.isEnabled = false
+            }
+        }
+    }
     
-    var interactionDismissing: Bool = false {
+    public var interactionDismissing = false {
         didSet {
             if interactionDismissing {
                 dismissingSource.superview?.superview?.addGestureRecognizer(panGR)
@@ -33,7 +40,7 @@ open class ExpandAnimation: NSObject {
                 pinchGR.isEnabled = false
             }
             dismissingSource.superview?.superview?.addGestureRecognizer(tapGR)
-            tapGR.isEnabled = true
+            tapGR.isEnabled = allowTapToClose
         }
     }
     
@@ -53,7 +60,7 @@ open class ExpandAnimation: NSObject {
         return imageView
     }()
     
-    fileprivate let overlayView: UIView = {
+    public let overlayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         return view
@@ -61,7 +68,7 @@ open class ExpandAnimation: NSObject {
     
     fileprivate var pinchGR: UIPinchGestureRecognizer!
     fileprivate var panGR: UIPanGestureRecognizer!
-    fileprivate var tapGR: UITapGestureRecognizer!
+    public var tapGR: UITapGestureRecognizer!
     fileprivate let contentMode: UIView.ContentMode
     var presenting: Bool = false
     
