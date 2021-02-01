@@ -211,6 +211,9 @@ extension ExpandAnimation: UIViewControllerTransitioningDelegate {
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = false
+        if panGR.state != .changed && panGR.state != .began && pinchGR.state != .changed && pinchGR.state != .began {
+            interactionDismissing = false
+        }
         return self
     }
     
@@ -456,6 +459,8 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                         
                         self.imageView.frame = self.source.convert(self.source.bounds, to: containerView)
                         self.secondImageView.frame = self.source.convert(self.source.bounds, to: self.secondImageView.superview!)
+                        self.imageView.layer.cornerRadius = self.source.layer.cornerRadius
+                        self.secondImageView.layer.cornerRadius = self.source.layer.cornerRadius
                         
                         if let overlay = customOverlay {
                             overlay.alpha = 1

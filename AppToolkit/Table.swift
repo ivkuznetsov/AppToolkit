@@ -32,6 +32,12 @@ import UIKit
     @objc optional func cellEstimatedHeight(object: Any, def: CGFloat, table: Table) -> CGFloat
 }
 
+@objc public protocol TablePrefetch {
+    
+    /// returns block to cancel prefetch
+    @objc func prefetch(object: Any) -> (()->())?
+}
+
 @objc public protocol CellSizeCachableObject {
     
     var cacheKey: String { get }
@@ -78,6 +84,11 @@ public struct TCell {
     }
 }
 
+struct CancelPrefetchingWrapper {
+    
+    var block: ()->()
+}
+
 fileprivate extension TableDelegate {
     func editable() -> TEditable? {
         return self as? TEditable
@@ -113,6 +124,8 @@ open class Table: StaticSetupObject {
         }
     }
     @objc open var cacheCellHeights = false
+    
+    private var prefetchTokens: [NSValue:CancelPrefetchingWrapper] = [:]
     
     private lazy var editButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAction))
@@ -313,6 +326,7 @@ open class Table: StaticSetupObject {
     func setup() {
         table.delegate = self
         table.dataSource = self
+        table.prefetchDataSource = delegate is TablePrefetch ? self : nil
         table.tableFooterView = UIView()
         table.register(ContainerTableCell.self, forCellReuseIdentifier: "ContainerTableCell")
         noObjectsViewType = NoObjectsView.self
@@ -340,6 +354,7 @@ open class Table: StaticSetupObject {
     }
     
     deinit {
+        prefetchTokens.forEach { $0.value.block() }
         table.delegate = nil
         table.dataSource = nil
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateHeights), object: nil)
@@ -500,5 +515,28 @@ extension Table: UITableViewDelegate {
             return editor.editingStyle
         }
         return .none
+    }
+}
+
+extension Table: UITableViewDataSourcePrefetching {
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if let delegate = delegate as? TablePrefetch {
+            indexPaths.forEach {
+                let object = objects[$0.row] as Any
+                if let block = delegate.prefetch(object: object) {
+                    prefetchTokens[cachedHeightKeyFor(object: object)] = CancelPrefetchingWrapper(block: block)
+                }
+            }
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            let object = objects[$0.row] as Any
+            let key = cachedHeightKeyFor(object: object)
+            prefetchTokens[key]?.block()
+            prefetchTokens[key] = nil
+        }
     }
 }

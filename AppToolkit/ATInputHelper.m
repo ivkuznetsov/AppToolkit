@@ -290,6 +290,7 @@
         UIEdgeInsets insets = _scrollView.contentInset;
         insets.bottom -= _additionalBottomInset;
         
+        [_scrollView layoutIfNeeded];
         CGPoint offset = _scrollView.contentOffset;
         [_delegate animateInsetChangeWithInsets:insets];
         _scrollView.contentOffset = offset;
@@ -330,6 +331,11 @@
 - (void)setAdditionalBottomInset:(CGFloat)additionalBottomInset {
     CGFloat offset = _additionalBottomInset - additionalBottomInset;
     _additionalBottomInset = additionalBottomInset;
+    
+    CGPoint contentOffset = self.scrollView.contentOffset;
+    contentOffset.y -= offset;
+    self.scrollView.contentOffset = contentOffset;
+    
     UIEdgeInsets insets = self.scrollView.contentInset;
     insets.bottom -= offset;
     self.scrollView.contentInset = insets;
