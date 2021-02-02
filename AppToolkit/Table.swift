@@ -125,7 +125,7 @@ open class Table: StaticSetupObject {
     }
     @objc open var cacheCellHeights = false
     
-    private var prefetchTokens: [NSValue:CancelPrefetchingWrapper] = [:]
+    private var prefetchTokens: [IndexPath:CancelPrefetchingWrapper] = [:]
     
     private lazy var editButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAction))
@@ -525,7 +525,7 @@ extension Table: UITableViewDataSourcePrefetching {
             indexPaths.forEach {
                 let object = objects[$0.row] as Any
                 if let block = delegate.prefetch(object: object) {
-                    prefetchTokens[cachedHeightKeyFor(object: object)] = CancelPrefetchingWrapper(block: block)
+                    prefetchTokens[$0] = CancelPrefetchingWrapper(block: block)
                 }
             }
         }
@@ -533,10 +533,8 @@ extension Table: UITableViewDataSourcePrefetching {
     
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach {
-            let object = objects[$0.row] as Any
-            let key = cachedHeightKeyFor(object: object)
-            prefetchTokens[key]?.block()
-            prefetchTokens[key] = nil
+            prefetchTokens[$0]?.block()
+            prefetchTokens[$0] = nil
         }
     }
 }
