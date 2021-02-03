@@ -95,4 +95,13 @@ import AppKit
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
         viewLayer.add(transition, forKey: "transition")
     }
+    
+    func addDismissFromTop() {
+        let transition = CATransition()
+        transition.type = .moveIn
+        transition.subtype = .fromTop
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
+        viewLayer.add(transition, forKey: "transition")
+    }
 }
