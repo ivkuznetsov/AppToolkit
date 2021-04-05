@@ -233,6 +233,8 @@
 		D7E1BA621FEB04FE00BE8266 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BA5D1FEB04FD00BE8266 /* TabsView.swift */; };
 		D7E1BA631FEB04FE00BE8266 /* TabsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E1BA5E1FEB04FD00BE8266 /* TabsCell.xib */; };
 		D7E1BA641FEB04FE00BE8266 /* TabsViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BA5F1FEB04FD00BE8266 /* TabsViewButton.swift */; };
+		D7E95BCB2618763F00F031BA /* AtomicProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E95BC92618763F00F031BA /* AtomicProperty.swift */; };
+		D7E95BCC2618763F00F031BA /* DispatchQueue+Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E95BCA2618763F00F031BA /* DispatchQueue+Detection.swift */; };
 		D7ED8BD524BF62360072BC99 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34FD23AD11DA006B33B7 /* UIView+Animations.swift */; };
 		D7F324A61FDA8D3A0038F1C4 /* Make.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F324A51FDA8D3A0038F1C4 /* Make.swift */; };
 		D7F324AD1FDA9AAC0038F1C4 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F324AC1FDA9AAC0038F1C4 /* OptionsView.swift */; };
@@ -475,6 +477,8 @@
 		D7E1BA5D1FEB04FD00BE8266 /* TabsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
 		D7E1BA5E1FEB04FD00BE8266 /* TabsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabsCell.xib; sourceTree = "<group>"; };
 		D7E1BA5F1FEB04FD00BE8266 /* TabsViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsViewButton.swift; sourceTree = "<group>"; };
+		D7E95BC92618763F00F031BA /* AtomicProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicProperty.swift; sourceTree = "<group>"; };
+		D7E95BCA2618763F00F031BA /* DispatchQueue+Detection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Detection.swift"; sourceTree = "<group>"; };
 		D7F324A51FDA8D3A0038F1C4 /* Make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Make.swift; sourceTree = "<group>"; };
 		D7F324AC1FDA9AAC0038F1C4 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		D7F324AE1FDA9AB80038F1C4 /* OptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
@@ -626,6 +630,8 @@
 		592061441E3A26900066BE0D /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				D7E95BC92618763F00F031BA /* AtomicProperty.swift */,
+				D7E95BCA2618763F00F031BA /* DispatchQueue+Detection.swift */,
 				D7949C3D1FCD7185000D2C4F /* UIView+LoadFromNib.swift */,
 				D7D20A6320C16D9100E15EEE /* UITableView+Reloading.swift */,
 				D7BE34FD23AD11DA006B33B7 /* UIView+Animations.swift */,
@@ -1231,6 +1237,8 @@
 				592061BA1E3B7AC70066BE0D /* ATLinkLabel.m in Sources */,
 				D78DEAE325C5AC8F00821DB7 /* SDImageHEICCoder.m in Sources */,
 				D78DEB1225C5AC8F00821DB7 /* SDWebImageCompat.m in Sources */,
+				D7E95BCB2618763F00F031BA /* AtomicProperty.swift in Sources */,
+				D7E95BCC2618763F00F031BA /* DispatchQueue+Detection.swift in Sources */,
 				D7949C581FCEB081000D2C4F /* NSManagedObject+Notifications.swift in Sources */,
 				D7949C221FCB38C5000D2C4F /* NoObjectsView.swift in Sources */,
 				D78DEB3425C5AC8F00821DB7 /* UIImageView+WebCache.m in Sources */,

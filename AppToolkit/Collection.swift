@@ -207,8 +207,16 @@ open class Collection: StaticSetupObject {
         
         if delegate?.shouldShowNoData?(resultObjects, collection: self) ??
             (type(of: self).defaultDelegate?.shouldShowNoData?(resultObjects, collection: self) ?? (objects.count == 0)) {
-            noObjectsView.frame = CGRect(x: 0, y: 0, width: collection.frame.size.width, height: collection.frame.size.height)
+            
             collection.addSubview(noObjectsView)
+            noObjectsView.translatesAutoresizingMaskIntoConstraints = false
+            noObjectsView.leftAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.leftAnchor).isActive = true
+            noObjectsView.rightAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.rightAnchor).isActive = true
+            noObjectsView.topAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.topAnchor).isActive = true
+            noObjectsView.bottomAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            noObjectsView.heightAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.heightAnchor).isActive = true
+            noObjectsView.widthAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.widthAnchor).isActive = true
+            
         } else {
             noObjectsView.removeFromSuperview()
         }
