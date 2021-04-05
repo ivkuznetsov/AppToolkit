@@ -198,6 +198,8 @@
 		D7949C561FCE1725000D2C4F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C551FCE1725000D2C4F /* NotificationManager.swift */; };
 		D7949C581FCEB081000D2C4F /* NSManagedObject+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */; };
 		D7AE7CF724D85AAE000B1118 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CB5CE51FE5BBD900341E60 /* Alert.swift */; };
+		D7B4CA5B25D172AD0019E92F /* ImagePreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B4CA5A25D172AD0019E92F /* ImagePreviewCell.swift */; };
+		D7B4CA6525D1732D0019E92F /* ImagePreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B4CA6425D1732D0019E92F /* ImagePreviewCell.xib */; };
 		D7BDA8D624FF974D0015795F /* PreviewScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */; };
 		D7BE34F423AD09C8006B33B7 /* UntouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */; };
 		D7BE34F623AD0A24006B33B7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE34F523AD0A24006B33B7 /* ReusableView.swift */; };
@@ -458,6 +460,8 @@
 		D7949C531FCE15C3000D2C4F /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		D7949C551FCE1725000D2C4F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Notifications.swift"; sourceTree = "<group>"; };
+		D7B4CA5A25D172AD0019E92F /* ImagePreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewCell.swift; sourceTree = "<group>"; };
+		D7B4CA6425D1732D0019E92F /* ImagePreviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePreviewCell.xib; sourceTree = "<group>"; };
 		D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScrollView.swift; sourceTree = "<group>"; };
 		D7BE34F323AD09C8006B33B7 /* UntouchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntouchableView.swift; sourceTree = "<group>"; };
 		D7BE34F523AD0A24006B33B7 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
@@ -704,8 +708,10 @@
 		D747AC4D1FFFC43D000282EA /* ImagePreviewController */ = {
 			isa = PBXGroup;
 			children = (
-				D747AC521FFFC588000282EA /* ExpandAnimation.swift */,
+				D7B4CA5A25D172AD0019E92F /* ImagePreviewCell.swift */,
+				D7B4CA6425D1732D0019E92F /* ImagePreviewCell.xib */,
 				D747AC4E1FFFC456000282EA /* ImagePreviewController.swift */,
+				D747AC521FFFC588000282EA /* ExpandAnimation.swift */,
 				D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */,
 			);
 			name = ImagePreviewController;
@@ -1106,6 +1112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				592061501E3A31850066BE0D /* NoObjectsView.xib in Resources */,
+				D7B4CA6525D1732D0019E92F /* ImagePreviewCell.xib in Resources */,
 				59C55A081E3E5D200049748A /* AlertBarView.xib in Resources */,
 				592061011E38EF270066BE0D /* FailedView.xib in Resources */,
 				592061081E38F5BB0066BE0D /* LoadingView.xib in Resources */,
@@ -1160,6 +1167,7 @@
 				D78DEB2025C5AC8F00821DB7 /* SDDiskCache.m in Sources */,
 				D747AC531FFFC588000282EA /* ExpandAnimation.swift in Sources */,
 				D78DEB4925C5AC8F00821DB7 /* UIView+WebCache.m in Sources */,
+				D7B4CA5B25D172AD0019E92F /* ImagePreviewCell.swift in Sources */,
 				D78DEAE525C5AC8F00821DB7 /* NSImage+Compatibility.m in Sources */,
 				D7949C291FCB5CF7000D2C4F /* AlerBarView.swift in Sources */,
 				D78DEAF525C5AC8F00821DB7 /* SDImageIOAnimatedCoder.m in Sources */,
