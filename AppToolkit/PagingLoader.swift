@@ -77,6 +77,10 @@ extension PagingLoaderDelegate {
         self.delegate = delegate
         self.scrollOnRefreshing = scrollOnRefreshing
         self.setFooterVisible = setFooterVisible
+        
+        processPullToRefreshError = { (_, error) in
+            Alert.present(error.localizedDescription, on: UIViewController.topViewController)
+        }
         super.init()
         
         defer {

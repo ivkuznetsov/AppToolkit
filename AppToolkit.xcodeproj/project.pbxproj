@@ -22,6 +22,7 @@
 		D7130AC623CFA48E00627271 /* FooterLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7130AC423CFA48E00627271 /* FooterLoadingView.xib */; };
 		D7130AC723CFA48E00627271 /* FooterLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7130AC523CFA48E00627271 /* FooterLoadingView.swift */; };
 		D713989924BA136300150510 /* UIView+LoadFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C3D1FCD7185000D2C4F /* UIView+LoadFromNib.swift */; };
+		D71DFD8E261DDA84007F37BE /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DFD8D261DDA84007F37BE /* UIViewController+Additions.swift */; };
 		D730FD631FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD621FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift */; };
 		D730FD9E1FD6EC66002D9F61 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */; };
 		D730FDA01FD6EF54002D9F61 /* FadeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD9F1FD6EF54002D9F61 /* FadeButton.swift */; };
@@ -288,6 +289,7 @@
 		D70F8AB320F5FEB6002ADD30 /* String+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validation.swift"; sourceTree = "<group>"; };
 		D7130AC423CFA48E00627271 /* FooterLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterLoadingView.xib; sourceTree = "<group>"; };
 		D7130AC523CFA48E00627271 /* FooterLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterLoadingView.swift; sourceTree = "<group>"; };
+		D71DFD8D261DDA84007F37BE /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		D730FD621FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignedLayout.swift; sourceTree = "<group>"; };
 		D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		D730FD9F1FD6EF54002D9F61 /* FadeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeButton.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 		592061441E3A26900066BE0D /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				D71DFD8D261DDA84007F37BE /* UIViewController+Additions.swift */,
 				D7E95BC92618763F00F031BA /* AtomicProperty.swift */,
 				D7E95BCA2618763F00F031BA /* DispatchQueue+Detection.swift */,
 				D7949C3D1FCD7185000D2C4F /* UIView+LoadFromNib.swift */,
@@ -1243,6 +1246,7 @@
 				D7BE34F823AD0BC2006B33B7 /* LocalizedButton.swift in Sources */,
 				D78DEB9625C5AC8F00821DB7 /* SDImageCachesManagerOperation.m in Sources */,
 				592061BA1E3B7AC70066BE0D /* ATLinkLabel.m in Sources */,
+				D71DFD8E261DDA84007F37BE /* UIViewController+Additions.swift in Sources */,
 				D78DEAE325C5AC8F00821DB7 /* SDImageHEICCoder.m in Sources */,
 				D78DEB1225C5AC8F00821DB7 /* SDWebImageCompat.m in Sources */,
 				D7E95BCB2618763F00F031BA /* AtomicProperty.swift in Sources */,
