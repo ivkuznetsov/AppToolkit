@@ -124,7 +124,10 @@ open class PagingCollection: Collection {
         
         if isVertical() {
             if let constraint = yConstraint {
-                constraint.constant = size.height
+                if constraint.constant != size.height {
+                    constraint.constant = size.height
+                    loader.footerLoadingView.superview?.layoutIfNeeded()
+                }
             }
         } else {
             loader.footerLoadingView.center = CGPoint(x: size.width + loader.footerLoadingView.frame.size.width / 2.0, y: size.height / 2.0)
