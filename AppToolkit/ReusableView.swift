@@ -60,7 +60,7 @@ open class ReusableView: UntouchableView {
         
         var view: UIView?
         
-        if let array = Bundle.main.loadNibNamed(nibName ?? String(describing: type(of: self)), owner: self, options: nil) {
+        if let array = Bundle(for: type(of: self)).loadNibNamed(nibName ?? String(describing: type(of: self)), owner: self, options: nil) {
             for object in array {
                 if let object = object as? UIView {
                     view = object
