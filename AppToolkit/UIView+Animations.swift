@@ -38,7 +38,17 @@ import AppKit
         addFadeTransition(duration: 0.15)
     }
     
-    
+    func addShake() {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.duration = 0.07
+        animation.autoreverses = true
+        animation.repeatCount = 3
+        animation.isRemovedOnCompletion = true
+        animation.fromValue = NSNumber(floatLiteral: -0.05)
+        animation.toValue = NSNumber(floatLiteral: 0.05)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        layer.add(animation, forKey: "shake")
+    }
     
     func addFadeTransition(duration: Double) {
         if viewLayer.animation(forKey: "fade") != nil {

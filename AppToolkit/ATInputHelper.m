@@ -299,7 +299,7 @@
     if (insetOffset > 0) {
         CGPoint point = _scrollView.contentOffset;
         if (_autoscrollBottom) {
-            point.y += insetOffset;
+            point.y += MAX(0, insetOffset - MAX(0, (_scrollView.frame.size.height - _scrollView.safeAreaInsets.top - _scrollView.safeAreaInsets.bottom - _scrollView.contentSize.height - _additionalBottomInset - _scrollView.contentInset.top)));
         }
         if ([_delegate respondsToSelector:@selector(targetOffsetOnKeyboardShow:input:insets:)]) {
             point.y = [_delegate targetOffsetOnKeyboardShow:point.y input:[self currentResponder] insets:_scrollView.contentInset];
