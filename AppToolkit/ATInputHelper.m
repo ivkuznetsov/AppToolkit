@@ -310,6 +310,10 @@
     }
     self.tapGR.enabled = bottomOffset != 0;
     
+    if (bottomOffset != 0 && [_delegate respondsToSelector:@selector(scrollToInput:)]) {
+        [_delegate scrollToInput:self.currentResponder];
+    }
+    
     [UIView commitAnimations];
 }
 
