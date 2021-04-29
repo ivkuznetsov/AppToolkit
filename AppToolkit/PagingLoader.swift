@@ -170,8 +170,11 @@ extension PagingLoaderDelegate {
     open func append(items: [AnyHashable], animated: Bool) {
         var array = fetchedItems
         
+        var set = Set(array)
+        
         for object in items {
-            if !array.contains(object) {
+            if !set.contains(object) {
+                set.insert(object)
                 array.append(object)
             }
         }
