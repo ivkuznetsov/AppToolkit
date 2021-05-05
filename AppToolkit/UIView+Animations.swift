@@ -79,6 +79,15 @@ import AppKit
         viewLayer.add(transition, forKey: "transition")
     }
     
+    func addMoveInTransition() {
+        let transition = CATransition()
+        transition.type = .moveIn
+        transition.subtype = .fromRight
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
+        viewLayer.add(transition, forKey: "transition")
+    }
+    
     func addMoveOutTransition() {
         let transition = CATransition()
         transition.type = .moveIn
