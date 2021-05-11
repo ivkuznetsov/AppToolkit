@@ -380,6 +380,9 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                 secondImageView.image = imageView.image
                 secondImageView.frame = imageView.convert(imageView.bounds, to: source.superview)
                 
+                imageView.layer.cornerRadius = source.layer.cornerRadius
+                secondImageView.layer.cornerRadius = source.layer.cornerRadius
+                
                 source.superview?.addSubview(secondImageView)
                 
                 imageView.alpha = 0
@@ -400,6 +403,8 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                            animations: {
                             
                             self.imageView.frame = targetRect
+                            self.imageView.layer.cornerRadius = 0
+                            self.secondImageView.layer.cornerRadius = 0
                             self.imageView.alpha = 1
                             if let frame = self.imageView.superview?.convert(targetRect, to: self.secondImageView.superview) {
                                 self.secondImageView.frame = frame
