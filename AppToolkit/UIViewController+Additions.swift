@@ -23,4 +23,17 @@ public extension UIViewController {
         
         return topVC
     }
+    
+    static var currentViewController: UIViewController? {
+        var topViewController = self.topViewController
+        
+        if let tabbarController = topViewController as? UITabBarController {
+            topViewController = tabbarController.selectedViewController
+        }
+        
+        if let nc = topViewController as? UINavigationController {
+            topViewController = nc.viewControllers.last
+        }
+        return topViewController
+    }
 }
