@@ -164,15 +164,15 @@ public extension Alert {
 
 public extension Alert {
     
-    @discardableResult static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, on view: UIView, inRect: CGRect) -> UIAlertController {
-        return presentSheet(title: title, message: message, cancel: cancel, other: other, destructive: destructive, item: view, inRect: inRect, on: nil)
+    @discardableResult static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, on view: UIView, inRect: CGRect, tintColor: UIColor? = nil) -> UIAlertController {
+        return presentSheet(title: title, message: message, cancel: cancel, other: other, destructive: destructive, item: view, inRect: inRect, on: nil, tintColor: tintColor)
     }
     
-    @discardableResult static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, barButton: UIBarButtonItem, on viewController: UIViewController?) -> UIAlertController {
-        return presentSheet(title: title, message: message, cancel: cancel, other: other, destructive: destructive, item: barButton, inRect: CGRect.zero, on: viewController)
+    @discardableResult static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, barButton: UIBarButtonItem, on viewController: UIViewController?, tintColor: UIColor? = nil) -> UIAlertController {
+        return presentSheet(title: title, message: message, cancel: cancel, other: other, destructive: destructive, item: barButton, inRect: CGRect.zero, on: viewController, tintColor: tintColor)
     }
     
-    fileprivate static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, item: Any, inRect: CGRect, on viewController: UIViewController?) -> UIAlertController {
+    fileprivate static func presentSheet(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], destructive: Int?, item: Any, inRect: CGRect, on viewController: UIViewController?, tintColor: UIColor?) -> UIAlertController {
         let sheet = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         sheet.addAction(UIAlertAction(title: cancel.0, style: .cancel) { (_) in
             cancel.1?()
@@ -183,6 +183,9 @@ public extension Alert {
             }))
         }
         
+        if let color = tintColor {
+            sheet.view.tintColor = color
+        }
         var vc = viewController
         if let item = item as? UIBarButtonItem {
             sheet.popoverPresentationController?.barButtonItem = item
@@ -223,7 +226,7 @@ public extension Alert {
         let others: [(String, (()->())?)] = other.map { (other) in
             return (other.title, other.closure)
         }
-        return presentSheet(title: title, message: message, cancel: (cancel.title, cancel.closure), other: others, destructive: destructive, item: view, inRect: inRect, on: nil)
+        return presentSheet(title: title, message: message, cancel: (cancel.title, cancel.closure), other: others, destructive: destructive, item: view, inRect: inRect, on: nil, tintColor: nil)
     }
     
     @available(swift, obsoleted: 1.0)
@@ -231,7 +234,7 @@ public extension Alert {
         let others: [(String, (()->())?)] = other.map { (other) in
             return (other.title, other.closure)
         }
-        return presentSheet(title: title, message: message, cancel: (cancel.title, cancel.closure), other: others, destructive: destructive, item: barButton, inRect: CGRect.zero, on: viewController)
+        return presentSheet(title: title, message: message, cancel: (cancel.title, cancel.closure), other: others, destructive: destructive, item: barButton, inRect: CGRect.zero, on: viewController, tintColor: nil)
     }
 }
 
