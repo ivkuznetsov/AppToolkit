@@ -10,33 +10,44 @@ import UIKit
 
 @objc open class TabsCell: UIView {
     
-    private var fillWidth = false
+    public enum Layout {
+        case fillWidth
+        case centerEqually
+        case scrollable
+    }
+    
+    @IBOutlet private var scrollView: UIScrollView!
+    
+    private var layout: Layout = .centerEqually
     public private(set) var tabsView: TabsView! {
         didSet {
             tabsView.translatesAutoresizingMaskIntoConstraints = false
-            self.insertSubview(tabsView, at: 0)
+            scrollView.insertSubview(tabsView, at: 0)
             
-            let constraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tabsView]|", options: [], metrics: nil, views: ["tabsView":tabsView!])
-            constraints.forEach {
-                $0.priority = UILayoutPriority(900)
-            }
-            self.addConstraints(constraints)
+            tabsView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            let bottom = tabsView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            bottom.priority = UILayoutPriority(900)
+            bottom.isActive = true
             
-            if fillWidth {
-                let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tabsView]|", options: [], metrics: nil, views: ["tabsView":tabsView!])
-                constraints.forEach {
-                    $0.priority = UILayoutPriority(900)
-                }
-                self.addConstraints(constraints)
-            } else {
+            if layout == .fillWidth {
+                tabsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+                let right = tabsView.rightAnchor.constraint(equalTo: rightAnchor)
+                right.priority = UILayoutPriority(900)
+                right.isActive = true
+            } else if layout == .centerEqually {
                 self.addConstraint(NSLayoutConstraint(item: tabsView!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
+            } else if layout == .scrollable {
+                tabsView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 15).isActive = true
+                tabsView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -15).isActive = true
+                tabsView.stackView.distribution = .equalSpacing
+                tabsView.stackView.spacing = 15
             }
         }
     }
     
-    open class func make(titles: [String], fillWidth: Bool, action: @escaping (Int)->()) -> Self {
+    open class func make(titles: [String], layout: Layout, action: @escaping (Int)->()) -> Self {
         let view = self.loadFromNib()
-        view.fillWidth = fillWidth
+        view.layout = layout
         view.tabsView = TabsView(titles: titles, style: .dark, didSelect: { (button, animated) in
             action(button.tag)
         })
@@ -44,6 +55,6 @@ import UIKit
     }
     
     open class func make(titles: [String], action: @escaping (Int)->()) -> Self {
-        return make(titles: titles, fillWidth: false, action: action)
+        return make(titles: titles, layout: .centerEqually, action: action)
     }
 }

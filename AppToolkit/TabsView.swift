@@ -130,6 +130,14 @@ open class TabsView: UIView {
         guard let index = stackView?.arrangedSubviews.firstIndex(of: buttons[selectedIndex]) else {
             return CGRect.zero
         }
+        
+        let button = buttons[selectedIndex]
+        let rect = CGRect(x: button.x, y: 0, width: button.width, height: backgroundView.height)
+        
+        if rect.size.width > 0 {
+            return rect
+        }
+        
         let width = backgroundView.width / CGFloat(stackView!.arrangedSubviews.count)
         return CGRect(x: width * CGFloat(index), y: 0, width: width, height: backgroundView.height)
     }

@@ -21,6 +21,7 @@
 		D70F8AB420F5FEB6002ADD30 /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70F8AB320F5FEB6002ADD30 /* String+Validation.swift */; };
 		D7130AC623CFA48E00627271 /* FooterLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7130AC423CFA48E00627271 /* FooterLoadingView.xib */; };
 		D7130AC723CFA48E00627271 /* FooterLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7130AC523CFA48E00627271 /* FooterLoadingView.swift */; };
+		D7131101266CE294006B3CED /* BaseRestorableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7131100266CE294006B3CED /* BaseRestorableViewController.swift */; };
 		D713989924BA136300150510 /* UIView+LoadFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C3D1FCD7185000D2C4F /* UIView+LoadFromNib.swift */; };
 		D730FD631FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD621FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift */; };
 		D730FD9E1FD6EC66002D9F61 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */; };
@@ -255,6 +256,7 @@
 		D70F8AB320F5FEB6002ADD30 /* String+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validation.swift"; sourceTree = "<group>"; };
 		D7130AC423CFA48E00627271 /* FooterLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterLoadingView.xib; sourceTree = "<group>"; };
 		D7130AC523CFA48E00627271 /* FooterLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterLoadingView.swift; sourceTree = "<group>"; };
+		D7131100266CE294006B3CED /* BaseRestorableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRestorableViewController.swift; sourceTree = "<group>"; };
 		D730FD621FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignedLayout.swift; sourceTree = "<group>"; };
 		D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		D730FD9F1FD6EF54002D9F61 /* FadeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeButton.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				593F49BF1EC8C9E80030BEBE /* PagingClasses */,
 				592061181E3905F30066BE0D /* OperationHelper */,
 				D7949C231FCB3A5D000D2C4F /* BaseController.swift */,
+				D7131100266CE294006B3CED /* BaseRestorableViewController.swift */,
 				D7F324A51FDA8D3A0038F1C4 /* Make.swift */,
 				592060EB1E38E26C0066BE0D /* AppToolkit.h */,
 				D78098E01FD979910071B9FD /* AppToolkitObjC.h */,
@@ -1089,6 +1092,7 @@
 				D730FDA01FD6EF54002D9F61 /* FadeButton.swift in Sources */,
 				D7949C241FCB3A5D000D2C4F /* BaseController.swift in Sources */,
 				D73EE4BD2258F06200D9FD7A /* SDWebImageCompat.m in Sources */,
+				D7131101266CE294006B3CED /* BaseRestorableViewController.swift in Sources */,
 				D73EE4A32258F06200D9FD7A /* UIImage+MemoryCacheCost.m in Sources */,
 				D73EE4722258F06200D9FD7A /* SDWebImageError.m in Sources */,
 				D73EE47B2258F06200D9FD7A /* UIImage+Metadata.m in Sources */,

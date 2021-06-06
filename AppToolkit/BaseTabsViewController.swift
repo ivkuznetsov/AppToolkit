@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(ATBaseTabsViewController)
-open class BaseTabsViewController: BaseController {
+open class BaseTabsViewController: BaseRestorableViewController {
     
     open var viewControllers: [UIViewController]!
     open private(set) var currentViewController: UIViewController?
@@ -20,7 +20,7 @@ open class BaseTabsViewController: BaseController {
     
     open var tabsView: TabsView!
     
-    public override init() {
+    public required init() {
         super.init()
     }
     
