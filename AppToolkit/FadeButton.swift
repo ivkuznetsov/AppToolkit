@@ -22,10 +22,11 @@ open class FadeButton: UIButton {
                 alpha = 1.0
                 
                 if (animatedHiglight) {
-                    let tranition = CATransition()
-                    tranition.duration = 0.15
-                    layer.add(tranition, forKey: nil)
-                    additionalView?.layer.add(tranition, forKey: nil)
+                    let transition = CATransition()
+                    transition.duration = 0.15
+                    transition.fillMode = .both
+                    layer.add(transition, forKey: nil)
+                    additionalView?.layer.add(transition, forKey: nil)
                 }
             }
         }
@@ -34,7 +35,7 @@ open class FadeButton: UIButton {
     open override var isEnabled: Bool {
         didSet {
             if isEnabled {
-                alpha = isHighlighted ? 0.5 : 1.0
+                alpha = isHighlighted ? 0.3 : 1.0
             } else {
                 alpha = 0.5
             }

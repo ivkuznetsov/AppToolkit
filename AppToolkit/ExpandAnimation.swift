@@ -11,80 +11,95 @@ import UIKit
 @objc(ATExpandAnimation)
 open class ExpandAnimation: NSObject {
     
-    fileprivate let source: UIView
-    fileprivate let dismissingSource: UIImageView
-    fileprivate let customContainer: UIView?
+    let source: ()->UIView?
+    let customContainer: UIView?
+    
+    public let pinchGR = UIPinchGestureRecognizer(target: nil, action: nil)
+    public let panGR = UIPanGestureRecognizer(target: nil, action: nil)
+    public let tapGR = UITapGestureRecognizer(target: nil, action: nil)
+    public let overlayView = UIView()
+    
+    fileprivate let aspectFill: Bool
+    fileprivate let dismissingImageView: (()->(UIImageView?))?
+    fileprivate let gesturesView: UIView
+    fileprivate let imageView = UIImageView()
+    fileprivate let secondImageView = UIImageView()
+    
     weak var viewController: UIViewController?
     fileprivate var yTranslation: CGFloat = 0
     fileprivate var reversed: Bool = false
     fileprivate var location = CGPoint.zero
+    fileprivate var interactionSource: UIView?
     fileprivate var interativeContext: UIViewControllerContextTransitioning?
     fileprivate var shouldEndGesture = false
+    public var allowTapToClose: Bool = true {
+        didSet {
+            if tapGR.isEnabled && !allowTapToClose {
+                tapGR.isEnabled = false
+            }
+        }
+    }
     
-    var interactionDismissing: Bool = false {
+    public var interactionDismissing = false {
         didSet {
             if interactionDismissing {
-                dismissingSource.superview?.superview?.addGestureRecognizer(panGR)
-                dismissingSource.superview?.superview?.addGestureRecognizer(pinchGR)
                 panGR.isEnabled = true
                 pinchGR.isEnabled = true
             } else {
                 panGR.isEnabled = false
                 pinchGR.isEnabled = false
             }
-            dismissingSource.superview?.superview?.addGestureRecognizer(tapGR)
-            tapGR.isEnabled = true
+            tapGR.isEnabled = allowTapToClose
         }
     }
     
-    fileprivate let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.clear
-        return imageView
-    }()
-    
-    fileprivate let secondImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.clear
-        return imageView
-    }()
-    
-    fileprivate let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        return view
-    }()
-    
-    fileprivate var pinchGR: UIPinchGestureRecognizer!
-    fileprivate var panGR: UIPanGestureRecognizer!
-    fileprivate var tapGR: UITapGestureRecognizer!
-    fileprivate let contentMode: UIView.ContentMode
     var presenting: Bool = false
     
-    init(source: UIView, dismissingSource: UIImageView, customContainer: UIView?, contentMode: UIView.ContentMode) {
+    /**
+     source - the view from which presentation animation expands
+     dismissingImageView - obtain the image view from which dismissing happens
+     gesturesView - to this view the pinch, pan and tap gestures will be attached
+     customContainer - make offset for overlays
+     */
+    init(source: @escaping ()->UIView?,
+         dismissingImageView: (()->(UIImageView?))? = nil,
+         gesturesView: UIView,
+         customContainer: UIView? = nil,
+         aspectFill: Bool = true) {
+        
         self.source = source
-        self.dismissingSource = dismissingSource
+        self.dismissingImageView = dismissingImageView
+        self.gesturesView = gesturesView
         self.customContainer = customContainer
-        self.contentMode = contentMode
+        self.aspectFill = aspectFill
+        
         super.init()
         
-        pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(pinchAction(_:)))
+        pinchGR.addTarget(self, action: #selector(pinchAction(_:)))
         pinchGR.delegate = self
-        panGR = UIPanGestureRecognizer(target: self, action: #selector(panAction(_:)))
+        gesturesView.addGestureRecognizer(pinchGR)
+        
+        panGR.addTarget(self, action: #selector(panAction(_:)))
         panGR.delegate = self
-        tapGR = UITapGestureRecognizer(target: self, action: #selector(tapAction(_:)))
+        gesturesView.addGestureRecognizer(panGR)
+        
+        tapGR.addTarget(self, action: #selector(tapAction(_:)))
         tapGR.delegate = self
         tapGR.require(toFail: pinchGR)
         tapGR.require(toFail: panGR)
+        gesturesView.addGestureRecognizer(tapGR)
         
-        imageView.contentMode = contentMode
-        secondImageView.contentMode = contentMode
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .clear
+        imageView.contentMode = aspectFill ? .scaleAspectFill : .scaleAspectFit
         
-        if customContainer != nil {
+        secondImageView.clipsToBounds = true
+        secondImageView.backgroundColor = .clear
+        secondImageView.contentMode = aspectFill ? .scaleAspectFill : .scaleAspectFit
+        
+        overlayView.backgroundColor = .white
+        
+        if customContainer != nil, let source = source() {
             imageView.backgroundColor = source.backgroundColor
             secondImageView.backgroundColor = source.backgroundColor
             overlayView.backgroundColor = source.backgroundColor
@@ -92,7 +107,7 @@ open class ExpandAnimation: NSObject {
     }
     
     @objc func panAction(_ gr: UIPanGestureRecognizer) {
-        let translation = gr.translation(in: dismissingSource.superview?.superview)
+        let translation = gr.translation(in: gesturesView)
         
         if gr.state == .began {
             viewController?.dismiss(animated: true, completion: nil)
@@ -100,7 +115,7 @@ open class ExpandAnimation: NSObject {
         }
         if gr.state == .changed {
             
-            let value = min(1, (1 - (translation.y / dismissingSource.superview!.superview!.height) / 2))
+            let value = min(1, (1 - (translation.y / gesturesView.height) / 2))
             let scale = max(value, 0.7)
             
             var convertedTranslation = translation
@@ -124,7 +139,7 @@ open class ExpandAnimation: NSObject {
     @objc func pinchAction(_ gr: UIPinchGestureRecognizer) {
         if gr.state == .began {
             viewController?.dismiss(animated: true, completion: nil)
-            location = gr.location(in: dismissingSource.superview?.superview)
+            location = gr.location(in: gesturesView)
         }
         if gr.state == .changed {
             if gr.numberOfTouches < 2 {
@@ -133,7 +148,7 @@ open class ExpandAnimation: NSObject {
                 return
             }
             let scale = pinchGR.scale
-            let location = gr.location(in: dismissingSource.superview?.superview)
+            let location = gr.location(in: gesturesView)
             let translation = CGPoint(x: location.x - self.location.x, y: location.y - self.location.y)
             
             imageView.transform = CGAffineTransform(scaleX: scale, y: scale).concatenating(CGAffineTransform(translationX: translation.x, y: translation.y))
@@ -177,10 +192,15 @@ open class ExpandAnimation: NSObject {
                            animations: {
                             
                             self.overlayView.alpha = 1
-                            self.imageView.frame = self.dismissingSource.convert(self.dismissingSource.bounds, to: containerView)
+                            
+                            if let imageView = self.dismissingImageView?() {
+                                self.imageView.frame = imageView.convert(imageView.bounds, to: containerView)
+                            } else {
+                                self.imageView.frame = self.gesturesView.convert(self.gesturesView.bounds, to: containerView)
+                            }
             }, completion: { (_) in
                 
-                self.source.isHidden = false
+                self.interactionSource?.isHidden = false
                 self.imageView.removeFromSuperview()
                 self.overlayView.removeFromSuperview()
                 toVC?.view.removeFromSuperview()
@@ -204,6 +224,9 @@ extension ExpandAnimation: UIViewControllerTransitioningDelegate {
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = false
+        if panGR.state != .changed && panGR.state != .began && pinchGR.state != .changed && pinchGR.state != .began {
+            interactionDismissing = false
+        }
         return self
     }
     
@@ -229,9 +252,16 @@ extension ExpandAnimation: UIViewControllerInteractiveTransitioning {
         overlayView.alpha = 1
         containerView.addSubview(overlayView)
         
-        imageView.image = dismissingSource.image
-        imageView.frame = dismissingSource.convert(dismissingSource.bounds, to: containerView)
-        source.isHidden = true
+        if let dismissingView = dismissingImageView?() {
+            imageView.image = dismissingView.image
+            imageView.frame = dismissingView.convert(dismissingView.bounds, to: containerView)
+        } else {
+            imageView.image = nil
+            imageView.frame = gesturesView.convert(gesturesView.bounds, to: containerView)
+        }
+        
+        interactionSource = source()
+        interactionSource?.isHidden = true
         containerView.addSubview(imageView)
         
         if shouldEndGesture {
@@ -287,10 +317,15 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
         let finalFrame = transitionContext.finalFrame(for: toVC)
         
+        interactionSource = source()
+        
         if presenting {
-            source.isHidden = true
+            interactionSource?.isHidden = true
             
+            containerView.addSubview(toVC.view)
             toVC.view.frame = finalFrame
+            toVC.view.layoutIfNeeded()
+            toVC.view.removeFromSuperview()
             
             overlayView.frame = finalFrame
             overlayView.alpha = 0
@@ -302,7 +337,7 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                 
                 let view = UIView(frame: customOverlay!.frame)
                 view.addSubview(customOverlay!)
-                view.backgroundColor = UIColor.clear
+                view.backgroundColor = .clear
                 view.clipsToBounds = true
                 view.frame = container.convert(container.bounds, to: containerView)
                 view.height = min(containerView.height - view.y, view.height)
@@ -326,22 +361,32 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
             }
             
             let oldColor = toVC.view.subviews.first?.backgroundColor
-            toVC.view.subviews.first?.backgroundColor = UIColor.clear
-            imageView.image = dismissingSource.image
-            toVC.view.subviews.first?.backgroundColor = oldColor
-            imageView.frame = source.convert(source.bounds, to: containerView)
-            containerView.addSubview(imageView)
+            toVC.view.subviews.first?.backgroundColor = .clear
             
-            if let overlay = customOverlay {
-                containerView.addSubview(overlay)
+            if let source = dismissingImageView?() {
+                imageView.image = source.image
             }
+            toVC.view.subviews.first?.backgroundColor = oldColor
             
-            secondImageView.image = imageView.image
-            secondImageView.frame = imageView.convert(imageView.bounds, to: source.superview)
-            
-            source.superview?.addSubview(secondImageView)
-            
-            imageView.alpha = 0
+            if let source = interactionSource {
+                imageView.frame = source.convert(source.bounds, to: containerView)
+                
+                containerView.addSubview(imageView)
+                
+                if let overlay = customOverlay {
+                    containerView.addSubview(overlay)
+                }
+                
+                secondImageView.image = imageView.image
+                secondImageView.frame = imageView.convert(imageView.bounds, to: source.superview)
+                
+                imageView.layer.cornerRadius = source.layer.cornerRadius
+                secondImageView.layer.cornerRadius = source.layer.cornerRadius
+                
+                source.superview?.addSubview(secondImageView)
+                
+                imageView.alpha = 0
+            }
             
             var targetRect = finalFrame
             if let imageSize = imageView.image?.size {
@@ -358,13 +403,15 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                            animations: {
                             
                             self.imageView.frame = targetRect
+                            self.imageView.layer.cornerRadius = 0
+                            self.secondImageView.layer.cornerRadius = 0
                             self.imageView.alpha = 1
                             if let frame = self.imageView.superview?.convert(targetRect, to: self.secondImageView.superview) {
                                 self.secondImageView.frame = frame
                             }
             }, completion: { (_) in
                 
-                self.source.isHidden = false
+                self.interactionSource?.isHidden = false
                 containerView.addSubview(toVC.view)
                 self.imageView.removeFromSuperview()
                 self.overlayView.removeFromSuperview()
@@ -386,8 +433,12 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
             overlayView.alpha = 1
             containerView.addSubview(overlayView)
             
-            imageView.image = dismissingSource.image
-            imageView.frame = dismissingSource.convert(dismissingSource.bounds, to: containerView)
+            if let image = dismissingImageView?() {
+                imageView.image = image.image
+                imageView.frame = image.convert(image.bounds, to: containerView)
+            } else {
+                imageView.frame = gesturesView.convert(gesturesView.bounds, to: containerView)
+            }
             containerView.addSubview(imageView)
             
             dismissController(context: transitionContext)
@@ -403,7 +454,7 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
         let frame = imageView.frame
         imageView.transform = .identity
         imageView.frame = frame
-        source.isHidden = true
+        interactionSource?.isHidden = true
         
         var customOverlay: UIView?
         if let container = customContainer {
@@ -411,7 +462,7 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
             
             let view = UIView(frame: customOverlay!.frame)
             view.addSubview(customOverlay!)
-            view.backgroundColor = UIColor.clear
+            view.backgroundColor = .clear
             view.clipsToBounds = true
             view.frame = container.convert(container.bounds, to: containerView)
             view.height = min(containerView.height - view.y, view.height)
@@ -437,8 +488,11 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
         }
         
         secondImageView.image = imageView.image
-        secondImageView.frame = imageView.convert(imageView.bounds, to: source.superview)
-        source.superview?.addSubview(secondImageView)
+        
+        if let source = interactionSource {
+            secondImageView.frame = imageView.convert(imageView.bounds, to: source.superview)
+            source.superview?.addSubview(secondImageView)
+        }
         
         UIView.animate(withDuration: transitionDuration(using: context),
                        delay: 0,
@@ -447,8 +501,12 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                        options: .curveEaseOut,
                        animations: {
                         
-                        self.imageView.frame = self.source.convert(self.source.bounds, to: containerView)
-                        self.secondImageView.frame = self.source.convert(self.source.bounds, to: self.secondImageView.superview!)
+                        if let source = self.interactionSource {
+                            self.imageView.frame = source.convert(source.bounds, to: containerView)
+                            self.secondImageView.frame = source.convert(source.bounds, to: self.secondImageView.superview!)
+                            self.imageView.layer.cornerRadius = source.layer.cornerRadius
+                            self.secondImageView.layer.cornerRadius = source.layer.cornerRadius
+                        }
                         
                         if let overlay = customOverlay {
                             overlay.alpha = 1
@@ -458,7 +516,7 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                         
         }) { (_) in
             
-            self.source.isHidden = false
+            self.interactionSource?.isHidden = false
             DispatchQueue.main.async {
                 self.imageView.removeFromSuperview()
                 self.imageView.alpha = 1
@@ -466,7 +524,7 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
                 if let overlay = customOverlay {
                     overlay.removeFromSuperview()
                 } else {
-                    self.source.superview?.addFadeTransition()
+                    self.interactionSource?.superview?.addFadeTransition()
                 }
                 context.completeTransition(true)
             }
@@ -480,7 +538,13 @@ extension ExpandAnimation: UIViewControllerAnimatedTransitioning {
 extension ExpandAnimation: UIGestureRecognizerDelegate {
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return gestureRecognizer != pinchGR || pinchGR.scale < 1.0
+        if gestureRecognizer == pinchGR {
+            return pinchGR.scale < 1
+        } else if gestureRecognizer == panGR {
+            let translation = panGR.translation(in: gesturesView)
+            return translation.y > abs(translation.x)
+        }
+        return true
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

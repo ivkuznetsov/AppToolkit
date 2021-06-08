@@ -22,7 +22,6 @@ FOUNDATION_EXPORT const unsigned char AppToolkitVersionString[];
 
 #import <AppToolkit/UIImageView+WebCache.h>
 #import <AppToolkit/UIButton+WebCache.h>
-#import <AppToolkit/MKAnnotationView+WebCache.h>
 #import <AppToolkit/UIView+WebCacheOperation.h>
 #import <AppToolkit/UIImageView+HighlightedWebCache.h>
 #import <AppToolkit/UIImage+MultiFormat.h>

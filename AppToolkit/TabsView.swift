@@ -49,6 +49,7 @@ open class TabsView: UIView {
                 selectTab(index: availableButton.tag, animated: false)
                 didSelect(availableButton, false)
             } else {
+                self.layoutIfNeeded()
                 self.selectedView.frame = self.selectedFrame()
             }
         }

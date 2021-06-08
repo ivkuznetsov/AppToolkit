@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(ATPagingLoaderDelegate)
-public protocol PagingLoaderDelegate: class {
+public protocol PagingLoaderDelegate: AnyObject {
     
     @objc optional func hasRefreshControl() -> Bool
     
@@ -24,7 +24,7 @@ public protocol PagingLoaderDelegate: class {
     func load(offset: Any?, completion: @escaping ([AnyHashable], Error?, /*new offset*/Any?)->())
 }
 
-@objc public protocol PCachable: class {
+@objc public protocol PCachable: AnyObject {
  
     func saveFirstPageInCache(objects: [AnyHashable])
     
@@ -77,6 +77,10 @@ extension PagingLoaderDelegate {
         self.delegate = delegate
         self.scrollOnRefreshing = scrollOnRefreshing
         self.setFooterVisible = setFooterVisible
+        
+        processPullToRefreshError = { (_, error) in
+            Alert.present(error.localizedDescription, on: UIViewController.topViewController)
+        }
         super.init()
         
         defer {
@@ -166,8 +170,11 @@ extension PagingLoaderDelegate {
     open func append(items: [AnyHashable], animated: Bool) {
         var array = fetchedItems
         
+        var set = Set(array)
+        
         for object in items {
-            if !array.contains(object) {
+            if !set.contains(object) {
+                set.insert(object)
                 array.append(object)
             }
         }

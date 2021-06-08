@@ -76,6 +76,20 @@ open class OperationHelper: StaticSetupObject {
     
     public init(view: UIView) {
         self.view = view
+        
+        shouldSupplyRetry = { (_, error) in
+            return (error as NSError).domain != "NetworkKit.com"
+        }
+        
+        processTranslucentError = { (_, error, retry) in
+            
+            let cancelTitle = retry != nil ? "Cancel" : "OK"
+            var otherActions: [(String, (()->())?)] = []
+            if retry != nil {
+                otherActions.append(("Retry", { retry?() }))
+            }
+            Alert.present(error.localizedDescription, cancel: cancelTitle, other: otherActions, on: UIViewController.topViewController)
+        }
         super.init()
     }
     

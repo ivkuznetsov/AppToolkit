@@ -251,6 +251,9 @@
         }
         CGRect viewRect = [_scrollView convertRect:_scrollView.bounds toView:topView];
         CGFloat viewBottomOffset = [UIScreen mainScreen].bounds.size.height - (viewRect.origin.y + viewRect.size.height);
+        
+        viewBottomOffset += _scrollView.safeAreaInsets.bottom;
+                
         bottomOffset = MAX(0, bottomOffset - viewBottomOffset);
     }
     
@@ -286,13 +289,17 @@
     if ([_delegate respondsToSelector:@selector(animateInsetChangeWithInsets:)]) {
         UIEdgeInsets insets = _scrollView.contentInset;
         insets.bottom -= _additionalBottomInset;
+        
+        [_scrollView layoutIfNeeded];
+        CGPoint offset = _scrollView.contentOffset;
         [_delegate animateInsetChangeWithInsets:insets];
+        _scrollView.contentOffset = offset;
     }
     
     if (insetOffset > 0) {
         CGPoint point = _scrollView.contentOffset;
         if (_autoscrollBottom) {
-            point.y += insetOffset;
+            point.y += MAX(0, insetOffset - MAX(0, (_scrollView.frame.size.height - _scrollView.safeAreaInsets.top - _scrollView.safeAreaInsets.bottom - _scrollView.contentSize.height - _additionalBottomInset - _scrollView.contentInset.top)));
         }
         if ([_delegate respondsToSelector:@selector(targetOffsetOnKeyboardShow:input:insets:)]) {
             point.y = [_delegate targetOffsetOnKeyboardShow:point.y input:[self currentResponder] insets:_scrollView.contentInset];
@@ -302,6 +309,10 @@
         }
     }
     self.tapGR.enabled = bottomOffset != 0;
+    
+    if (bottomOffset != 0 && [_delegate respondsToSelector:@selector(scrollToInput:)]) {
+        [_delegate scrollToInput:self.currentResponder];
+    }
     
     [UIView commitAnimations];
 }
@@ -324,6 +335,11 @@
 - (void)setAdditionalBottomInset:(CGFloat)additionalBottomInset {
     CGFloat offset = _additionalBottomInset - additionalBottomInset;
     _additionalBottomInset = additionalBottomInset;
+    
+    CGPoint contentOffset = self.scrollView.contentOffset;
+    contentOffset.y -= offset;
+    self.scrollView.contentOffset = contentOffset;
+    
     UIEdgeInsets insets = self.scrollView.contentInset;
     insets.bottom -= offset;
     self.scrollView.contentInset = insets;

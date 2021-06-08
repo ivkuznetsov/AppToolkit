@@ -38,7 +38,17 @@ import AppKit
         addFadeTransition(duration: 0.15)
     }
     
-    
+    func addShake() {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.duration = 0.07
+        animation.autoreverses = true
+        animation.repeatCount = 3
+        animation.isRemovedOnCompletion = true
+        animation.fromValue = NSNumber(floatLiteral: -0.05)
+        animation.toValue = NSNumber(floatLiteral: 0.05)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        layer.add(animation, forKey: "shake")
+    }
     
     func addFadeTransition(duration: Double) {
         if viewLayer.animation(forKey: "fade") != nil {
@@ -69,6 +79,15 @@ import AppKit
         viewLayer.add(transition, forKey: "transition")
     }
     
+    func addMoveInTransition() {
+        let transition = CATransition()
+        transition.type = .moveIn
+        transition.subtype = .fromRight
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
+        viewLayer.add(transition, forKey: "transition")
+    }
+    
     func addMoveOutTransition() {
         let transition = CATransition()
         transition.type = .moveIn
@@ -92,6 +111,15 @@ import AppKit
         transition.type = .moveIn
         transition.subtype = .fromBottom
         transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
+        viewLayer.add(transition, forKey: "transition")
+    }
+    
+    func addDismissFromTop() {
+        let transition = CATransition()
+        transition.type = .moveIn
+        transition.subtype = .fromTop
+        transition.duration = 0.5
         transition.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0, 0, 1)
         viewLayer.add(transition, forKey: "transition")
     }

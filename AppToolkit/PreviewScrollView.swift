@@ -31,6 +31,7 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
     public var didScroll: (()->())?
     public var didEndScroll: (()->())?
     public var didZoomContinuous: (()->())?
+    public var customizeInsetsOnZoom: ((UIEdgeInsets)->(UIEdgeInsets))?
     public var minAspectLimit: CGFloat?
     public var maxAspectLimit: CGFloat?
     
@@ -51,41 +52,27 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
         showsVerticalScrollIndicator = false
     }
     
-    open func set(image: UIImage?) {
-        set(image: image, aspect: aspect(size: self.size(image: image)))
-    }
-    
-    private func size(image: UIImage?) -> CGSize {
-        if let image = image {
-            return CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
-        }
-        return .zero
-    }
-    
-    private func aspect(size: CGSize) -> CGFloat {
-        if size.width > 0 {
-            return size.height / size.width
-        }
-        return 0
-    }
-    
-    private func set(image: UIImage?, aspect: CGFloat) {
-        let size = self.size(image: image)
+    open func set(image: UIImage?, resize: Bool = true) {
+        let hasImage = imageView.image != nil
         
         imageView.image = image
         
         if imageView.superview == nil {
-            imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             containerView.addSubview(imageView)
             insertSubview(containerView, at: 0)
         }
         
-        if image != nil {
-            minimumZoomScale = 1
-            maximumZoomScale = 1
-            zoomScale = 1
-            layoutIfNeeded()
-            
+        if !resize && hasImage {
+            return
+        }
+        
+        minimumZoomScale = 1
+        maximumZoomScale = 1
+        zoomScale = 1
+        layoutIfNeeded()
+        
+        if let image = image {
+            let size = self.size(image: image)
             let scale = UIScreen.main.scale
             
             containerView.frame = CGRect(x: 0, y: 0, width: size.width / scale, height: size.height / scale)
@@ -98,8 +85,16 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
             if aspectFill {
                 contentOffset = CGPoint(x: contentSize.width / 2 - bounds.size.width / 2, y: contentSize.height / 2 - bounds.size.height / 2)
             }
+        } else {
+            containerView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            imageView.frame = containerView.bounds
+            contentSize = imageView.bounds.size
+            contentOffset = .zero
+            contentInset = .zero
         }
     }
+    
+    private func size(image: UIImage) -> CGSize { CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale) }
     
     public func zoomToFill() {
         if containerView.frame.size.height == 0 || bounds.size.height == 0 || imageView.frame.size.width == 0 || imageView.frame.size.height == 0 {
@@ -118,11 +113,16 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
     }
     
     private func layoutImageView() {
-        if imageView.image == nil || bounds.size.width == 0 || bounds.size.height == 0 {
+        if bounds.size.width == 0 || bounds.size.height == 0 {
             return
         }
         
-        maximumZoomScale = 4
+        if imageView.image == nil {
+            minimumZoomScale = 1
+            maximumZoomScale = 1
+            zoomScale = 1
+            return
+        }
         
         var aspect = (containerView.frame.size.width / zoomScale) / (containerView.frame.size.height / zoomScale)
         
@@ -141,9 +141,8 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
             minimumZoomScale = bounds.size.height / (imageView.frame.size.width / aspect / zoomScale)
         }
         
-        if maximumZoomScale < minimumZoomScale {
-            maximumZoomScale = minimumZoomScale
-        }
+        maximumZoomScale = minimumZoomScale * 4
+        
         if zoomScale < minimumZoomScale {
             zoomScale = minimumZoomScale
         }
@@ -214,7 +213,8 @@ open class PreviewScrollView: UIScrollView, UIScrollViewDelegate {
         if contentSize.height < bounds.size.height {
             top = (bounds.size.height - contentSize.height) * 0.5
         }
-        scrollView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        let insets = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        scrollView.contentInset = customizeInsetsOnZoom?(insets) ?? insets
         didZoomContinuous?()
     }
     

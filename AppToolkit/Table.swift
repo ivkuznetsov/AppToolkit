@@ -32,7 +32,18 @@ import UIKit
     @objc optional func cellEstimatedHeight(object: Any, def: CGFloat, table: Table) -> CGFloat
 }
 
-@objc public protocol TEditable: class {
+@objc public protocol TablePrefetch {
+    
+    /// returns block to cancel prefetch
+    @objc func prefetch(object: Any) -> (()->())?
+}
+
+@objc public protocol CellSizeCachableObject {
+    
+    var cacheKey: String { get }
+}
+
+@objc public protocol TEditable: AnyObject {
     
     func cellEditor(object: Any, table: Table) -> Any?
 }
@@ -73,6 +84,11 @@ public struct TCell {
     }
 }
 
+struct CancelPrefetchingWrapper {
+    
+    var block: ()->()
+}
+
 fileprivate extension TableDelegate {
     func editable() -> TEditable? {
         return self as? TEditable
@@ -92,7 +108,7 @@ open class Table: StaticSetupObject {
         }
     }
     //use constraints for attacing UIView to TableContainerCell
-    @objc var attachViewsByConstraints: Bool = true
+    @objc public var attachViewsByConstraints: Bool = true
     
     public static var defaultDelegate: TableDelegate?
     @objc open private(set) var table: UITableView!
@@ -101,6 +117,15 @@ open class Table: StaticSetupObject {
     //for edit/done button
     @objc open weak var navigationItem: UINavigationItem?
     @objc open var processEditing: ((@escaping ()->())->())?
+    
+    @objc open var useEstimatedCellHeights = true {
+        didSet {
+            table.estimatedRowHeight = useEstimatedCellHeights ? 150 : 0
+        }
+    }
+    @objc open var cacheCellHeights = false
+    
+    private var prefetchTokens: [IndexPath:CancelPrefetchingWrapper] = [:]
     
     private lazy var editButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAction))
@@ -118,7 +143,7 @@ open class Table: StaticSetupObject {
     @objc open private(set) var noObjectsView: NoObjectsView!
     
     weak var delegate: TableDelegate?
-    fileprivate var estimatedHeights: [NSValue:CGFloat] = [:]
+    fileprivate var cachedHeights: [NSValue:CGFloat] = [:]
     
     @objc public init(table: UITableView, delegate: TableDelegate) {
         self.table = table
@@ -156,6 +181,10 @@ open class Table: StaticSetupObject {
         setup()
     }
     
+    @objc open func clearHeightCache(_ object: Any) {
+        cachedHeights[cachedHeightKeyFor(object: object)] = nil
+    }
+    
     @objc open func set(objects: [Any], animated: Bool) {
         let oldObjects = self.objects
         let resultObjects = objects.map { (object) -> AnyHashable in
@@ -176,9 +205,9 @@ open class Table: StaticSetupObject {
         }
         
         // remove missed estimated heights
-        var set = Set(estimatedHeights.keys)
-        objects.forEach { set.remove(estimatedHeightKeyFor(object: $0)) }
-        set.forEach { estimatedHeights[$0] = nil }
+        var set = Set(cachedHeights.keys)
+        objects.forEach { set.remove(cachedHeightKeyFor(object: $0)) }
+        set.forEach { cachedHeights[$0] = nil }
         
         if !deferredUpdate && (animated && oldObjects.count > 0) {
             table.reload(oldData: oldObjects, newData: resultObjects, deferred: { [weak self] in
@@ -297,12 +326,16 @@ open class Table: StaticSetupObject {
     func setup() {
         table.delegate = self
         table.dataSource = self
+        table.prefetchDataSource = delegate is TablePrefetch ? self : nil
         table.tableFooterView = UIView()
         table.register(ContainerTableCell.self, forCellReuseIdentifier: "ContainerTableCell")
         noObjectsViewType = NoObjectsView.self
     }
     
-    fileprivate func estimatedHeightKeyFor(object: Any) -> NSValue {
+    fileprivate func cachedHeightKeyFor(object: Any) -> NSValue {
+        if let object = object as? CellSizeCachableObject {
+            return NSNumber(integerLiteral: object.cacheKey.hash)
+        }
         return NSValue(nonretainedObject: object)
     }
     
@@ -321,6 +354,7 @@ open class Table: StaticSetupObject {
     }
     
     deinit {
+        prefetchTokens.forEach { $0.value.block() }
         table.delegate = nil
         table.dataSource = nil
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateHeights), object: nil)
@@ -364,6 +398,7 @@ extension Table: UITableViewDataSource {
             }
         }
         
+        cell.width = tableView.width
         cell.layoutIfNeeded()
         cell.separatorHidden = (indexPath.row == objects.count - 1) && table.tableFooterView != nil
         return cell
@@ -373,25 +408,38 @@ extension Table: UITableViewDataSource {
         var resultHeight = UITableView.automaticDimension
         let object = objects[indexPath.row] as Any // swift bug workaround
         
-        var height = delegate?.cellHeight?(object: object, def: resultHeight, table: self)
+        var height: CGFloat?
+        
+        if cacheCellHeights {
+            height = cachedHeights[cachedHeightKeyFor(object: object)]
+        }
+        if height == nil {
+            height = delegate?.cellHeight?(object: object, def: resultHeight, table: self)
+        }
         if height == nil || height! == 0 {
             height = type(of: self).defaultDelegate?.cellHeight?(object: object, def: resultHeight, table: self)
         }
         if let height = height, height > 0 {
             resultHeight = height
         }
-        
+        if cacheCellHeights {
+            cachedHeights[cachedHeightKeyFor(object: object)] = resultHeight
+        }
         return resultHeight
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         let object = objects[indexPath.row] as Any // swift bug workaround
         
+        if !useEstimatedCellHeights {
+            return self.tableView(tableView, heightForRowAt: indexPath)
+        }
+        
         if let cell = object as? UITableViewCell {
             return cell.bounds.size.height
         } else if let cell = object as? UIView {
             return cell.systemLayoutSizeFitting(CGSize(width: tableView.width, height: CGFloat.greatestFiniteMagnitude)).height
-        } else if let value = estimatedHeights[estimatedHeightKeyFor(object: object)] {
+        } else if let value = cachedHeights[cachedHeightKeyFor(object: object)] {
             return value
         } else if let value = (delegate?.cellEstimatedHeight?(object: object, def: tableView.estimatedRowHeight, table: self) ??
             type(of: self).defaultDelegate?.cellEstimatedHeight?(object: object, def: tableView.estimatedRowHeight, table: self)) {
@@ -429,8 +477,8 @@ extension Table: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let holding = cell as? TCellObjectHolding, let object = holding.object {
-            estimatedHeights[estimatedHeightKeyFor(object: object)] = cell.bounds.size.height
+        if useEstimatedCellHeights, let holding = cell as? TCellObjectHolding, let object = holding.object {
+            cachedHeights[cachedHeightKeyFor(object: object)] = cell.bounds.size.height
         }
         delegate?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
@@ -467,5 +515,26 @@ extension Table: UITableViewDelegate {
             return editor.editingStyle
         }
         return .none
+    }
+}
+
+extension Table: UITableViewDataSourcePrefetching {
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if let delegate = delegate as? TablePrefetch {
+            indexPaths.forEach {
+                let object = objects[$0.row] as Any
+                if let block = delegate.prefetch(object: object) {
+                    prefetchTokens[$0] = CancelPrefetchingWrapper(block: block)
+                }
+            }
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            prefetchTokens[$0]?.block()
+            prefetchTokens[$0] = nil
+        }
     }
 }

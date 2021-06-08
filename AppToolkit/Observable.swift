@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Observable: class {
+public protocol Observable: AnyObject {
     
     static func notificationName() -> String
     
