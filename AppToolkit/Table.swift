@@ -43,7 +43,7 @@ import UIKit
     var cacheKey: String { get }
 }
 
-@objc public protocol TEditable: class {
+@objc public protocol TEditable: AnyObject {
     
     func cellEditor(object: Any, table: Table) -> Any?
 }

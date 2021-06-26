@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(ATBaseController)
-open class BaseController: UIViewController {
+open class BaseController: UIViewController, UIViewControllerRestoration {
     
     private var viewLayouted: Bool = false
     
@@ -17,19 +17,38 @@ open class BaseController: UIViewController {
     
     public init() {
         super.init(nibName: nil, bundle: nil)
+        commonInit()
     }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    open func commonInit() {
+        if self is Restorable {
+            if restorationIdentifier == nil {
+                restorationIdentifier = className()
+            }
+            restorationClass = type(of: self)
+        }
     }
     
     open lazy var operationHelper: OperationHelper = {
         return OperationHelper(view: self.view)
     }()
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self is Restorable && navigationController?.restorationIdentifier == nil {
+            navigationController?.restorationIdentifier = "Navigation" + className()
+        }
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +100,71 @@ open class BaseController: UIViewController {
         
         if !viewLayouted {
             performOnFirstLayout()
+            restoreScrollViews()
             viewLayouted = true
+        }
+    }
+    
+    open class func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
+        if let wSelf = self as? (UIViewController & Restorable).Type {
+            return wSelf.init()
+        }
+        return nil
+    }
+    
+    private var scrollViewsToRestore: [(UIScrollView, CGPoint)] = []
+    
+    private func restoreScrollViews() {
+        scrollViewsToRestore.forEach { $0.contentOffset = $1 }
+        scrollViewsToRestore.removeAll()
+    }
+    
+    open func process(_ scrollView: UIScrollView, key: String, operation: RestorableOperation) {
+          if operation.operationType == .store {
+            operation.coder.encode(scrollView.contentOffset, forKey: key)
+        } else {
+            if let point = operation.coder.decodeObject(forKey: key) as? CGPoint {
+                scrollViewsToRestore.append((scrollView, point))
+            }
+        }
+    }
+    
+    open override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        
+        if let restorable = self as? Restorable {
+            restorable.processKeypaths(RestorableOperation(operationType: .store, coder: coder))
+            
+            children.forEach { vc in
+                if let restorationId = vc.restorationIdentifier {
+                    if let tabVC = vc as? UITabBarController {
+                        tabVC.encode(with: coder)
+                    } else {
+                        let archiver = NSKeyedArchiver()
+                        vc.encodeRestorableState(with: archiver)
+                        coder.encode(archiver.encodedData, forKey: restorationId)
+                    }
+                }
+            }
+        }
+    }
+    
+    open override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        
+        if let restorable = self as? Restorable {
+            restorable.processKeypaths(RestorableOperation(operationType: .restore, coder: coder))
+            
+            children.forEach { vc in
+                if let restorationId = vc.restorationIdentifier {
+                    if let tabVC = vc as? UITabBarController {
+                        tabVC.decodeRestorableState(with: coder)
+                    } else if let data = coder.decodeObject(forKey: restorationId) as? Data {
+                        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                        vc.decodeRestorableState(with: unarchiver)
+                    }
+                }
+            }
         }
     }
 }

@@ -9,10 +9,10 @@
 import UIKit
 
 @objc(ATBaseTabsViewController)
-open class BaseTabsViewController: BaseController {
+open class BaseTabsViewController: BaseController, Restorable {
     
-    open var viewControllers: [UIViewController]!
-    open private(set) var currentViewController: UIViewController?
+    open var viewControllers: [UIViewController] = []
+    @objc open private(set) var currentViewController: UIViewController?
     
     @IBOutlet open var containerView: UIView!
     @IBOutlet open var tabsContainerView: UIView? // navigationItem.titleView if nil
@@ -20,7 +20,7 @@ open class BaseTabsViewController: BaseController {
     
     open var tabsView: TabsView!
     
-    public override init() {
+    required public override init() {
         super.init()
     }
     
@@ -38,12 +38,19 @@ open class BaseTabsViewController: BaseController {
         super.init(coder: aDecoder)
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tabsView = TabsView(titles: viewControllers.map{ $0.title! }, style: .dark, didSelect: { [unowned self] (button, animated) in
-            _ = self.selectController(at: button.tag, animated: animated)
-        })
+    open func processKeypaths(_ operation: RestorableOperation) {
+        process(\.currentViewController, store: { $0?.restorationIdentifier },
+                restore: { identifier in
+                    
+                    if let index = viewControllers.firstIndex(where: { $0.restorationIdentifier == identifier }) {
+                        _ = selectController(at: index, animated: false)
+                    }
+                    return nil
+                }, operation: operation)
+    }
+    
+    open override func performOnFirstLayout() {
+        super.performOnFirstLayout()
         
         if tabsContainerView != nil {
             attachTabsViewToContainer()
@@ -63,7 +70,22 @@ open class BaseTabsViewController: BaseController {
             
             tabsView.addConstraint(constraint)
         }
-        _ = selectController(at: 0, animated: false)
+        
+        if currentViewController == nil {
+            _ = selectController(at: 0, animated: false)
+        } else {
+            if let vc = currentViewController, let index = viewControllers.firstIndex(of: vc) {
+                tabsView.selectTab(index: index, animated: false)
+            }
+        }
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tabsView = TabsView(titles: viewControllers.map{ $0.title! }, style: .dark, didSelect: { [unowned self] (button, animated) in
+            _ = self.selectController(at: button.tag, animated: animated)
+        })
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(gr:)))
         swipeLeft.direction = .left

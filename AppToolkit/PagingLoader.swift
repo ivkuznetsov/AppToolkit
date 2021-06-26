@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(ATPagingLoaderDelegate)
-public protocol PagingLoaderDelegate: class {
+public protocol PagingLoaderDelegate: AnyObject {
     
     @objc optional func hasRefreshControl() -> Bool
     
@@ -24,7 +24,7 @@ public protocol PagingLoaderDelegate: class {
     func load(offset: Any?, completion: @escaping ([AnyHashable], Error?, /*new offset*/Any?)->())
 }
 
-@objc public protocol PCachable: class {
+@objc public protocol PCachable: AnyObject {
  
     func saveFirstPageInCache(objects: [AnyHashable])
     
