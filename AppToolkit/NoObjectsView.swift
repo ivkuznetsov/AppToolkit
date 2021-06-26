@@ -24,4 +24,11 @@ open class NoObjectsView: UIView {
     @IBAction private func action(sender: UIButton) {
         actionClosure?()
     }
+    
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if actionButton?.frame.contains(point) == true {
+            return super.hitTest(point, with: event)
+        }
+        return nil
+    }
 }
