@@ -88,7 +88,7 @@ open class OperationHelper: StaticSetupObject {
             if retry != nil {
                 otherActions.append(("Retry", { retry?() }))
             }
-            Alert.present(error.localizedDescription, cancel: cancelTitle, other: otherActions, on: UIViewController.topViewController)
+            Alert.present(message: error.localizedDescription, cancel: cancelTitle, other: otherActions, on: UIViewController.topViewController)
         }
         super.init()
     }
