@@ -24,6 +24,7 @@
 		D7131102266CF707006B3CED /* Restorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7131100266CE294006B3CED /* Restorable.swift */; };
 		D713989924BA136300150510 /* UIView+LoadFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C3D1FCD7185000D2C4F /* UIView+LoadFromNib.swift */; };
 		D71DFD8E261DDA84007F37BE /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DFD8D261DDA84007F37BE /* UIViewController+Additions.swift */; };
+		D72AFE4E269494880009F447 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72AFE4D269494880009F447 /* Keychain.swift */; };
 		D730FD631FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD621FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift */; };
 		D730FD9E1FD6EC66002D9F61 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */; };
 		D730FDA01FD6EF54002D9F61 /* FadeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730FD9F1FD6EF54002D9F61 /* FadeButton.swift */; };
@@ -292,6 +293,7 @@
 		D7130AC523CFA48E00627271 /* FooterLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterLoadingView.swift; sourceTree = "<group>"; };
 		D7131100266CE294006B3CED /* Restorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restorable.swift; sourceTree = "<group>"; };
 		D71DFD8D261DDA84007F37BE /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
+		D72AFE4D269494880009F447 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		D730FD621FD43D1F002D9F61 /* CollectionViewLeftAlignedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignedLayout.swift; sourceTree = "<group>"; };
 		D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		D730FD9F1FD6EF54002D9F61 /* FadeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeButton.swift; sourceTree = "<group>"; };
@@ -911,6 +913,7 @@
 				D7FCA6151FA246C10005DAEB /* ATLocationManager.h */,
 				D7FCA6131FA246C00005DAEB /* ATLocationManager.m */,
 				D7CB5CE51FE5BBD900341E60 /* Alert.swift */,
+				D72AFE4D269494880009F447 /* Keychain.swift */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1271,6 +1274,7 @@
 				D7BE34FE23AD11DA006B33B7 /* UIView+Animations.swift in Sources */,
 				D730FDAD1FD71B3D002D9F61 /* StaticSetup.swift in Sources */,
 				D730FDA21FD6F0E0002D9F61 /* BorderedButton.swift in Sources */,
+				D72AFE4E269494880009F447 /* Keychain.swift in Sources */,
 				D7FCA60E1FA246370005DAEB /* NSObject+ClassName.m in Sources */,
 				D7E1BA611FEB04FE00BE8266 /* TabsCell.swift in Sources */,
 				D7130AC723CFA48E00627271 /* FooterLoadingView.swift in Sources */,
