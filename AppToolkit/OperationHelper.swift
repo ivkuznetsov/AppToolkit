@@ -202,6 +202,7 @@ open class OperationHelper: StaticSetupObject {
         if loading == .translucent || loading == .fullscreen {
             if loadingCounter == 0 {
                 loadingView = loadingViewType.present(in: view, animated: (loading == .translucent) && view.window != nil && failedView == nil)
+                loadingView?.performLazyLoading(showBackground: loading == .fullscreen)
             }
             if loading == .fullscreen && loadingView?.opaqueStyle == false {
                 loadingView?.opaqueStyle = true

@@ -53,4 +53,18 @@ open class BaseTableViewCell: UITableViewCell, TCellObjectHolding {
         super.layoutSubviews()
         self.separatorHidden = separatorHidden
     }
+    
+    open override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        reloadSelection(animated: animated)
+    }
+    
+    open override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        reloadSelection(animated: animated)
+    }
+    
+    open func reloadSelection(animated: Bool) {
+        
+    }
 }

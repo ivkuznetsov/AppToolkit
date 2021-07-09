@@ -13,7 +13,7 @@ import UIKit
 open class LoadingView : UIView {
     
     @IBOutlet open var indicator: UIActivityIndicatorView!
-    @IBOutlet open var progressIndicator: CircularProgressView!
+    @IBOutlet open var progressIndicator: CircularProgressView?
     
     open var opaqueStyle: Bool = false {
         didSet {
@@ -21,11 +21,28 @@ open class LoadingView : UIView {
         }
     }
     
+    open func performLazyLoading(showBackground: Bool) {
+        let color = backgroundColor
+        indicator.isHidden = true
+        
+        if !showBackground {
+            backgroundColor = .clear
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.backgroundColor = color
+            self?.addFadeTransition()
+            if let wSelf = self, wSelf.progressIndicator?.isHidden != false {
+                wSelf.indicator.isHidden = false
+            }
+        }
+    }
+    
     open var progress: CGFloat = 0 {
         didSet {
             indicator.isHidden = true
-            progressIndicator.isHidden = false
-            progressIndicator.progress = progress
+            progressIndicator?.isHidden = false
+            progressIndicator?.progress = progress
         }
     }
     
