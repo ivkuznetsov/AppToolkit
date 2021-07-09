@@ -21,6 +21,22 @@ public protocol Cancellable {
     func cancel()
 }
 
+public class CancelToken: Cancellable {
+
+    @Atomic public private(set) var isCancelled: Bool = false
+    
+    private let action: (()->())?
+    
+    public func cancel() {
+        isCancelled = true
+        action?()
+    }
+    
+    public init(action: (()->())? = nil) {
+        self.action = action
+    }
+}
+
 extension URLSessionTask: Cancellable { }
 
 public typealias Progress = (Double)->()
@@ -88,7 +104,7 @@ open class OperationHelper: StaticSetupObject {
             if retry != nil {
                 otherActions.append(("Retry", { retry?() }))
             }
-            Alert.present(error.localizedDescription, cancel: cancelTitle, other: otherActions, on: UIViewController.topViewController)
+            Alert.present(message: error.localizedDescription, cancel: cancelTitle, other: otherActions, on: UIViewController.topViewController)
         }
         super.init()
     }

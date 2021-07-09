@@ -79,7 +79,7 @@ extension PagingLoaderDelegate {
         self.setFooterVisible = setFooterVisible
         
         processPullToRefreshError = { (_, error) in
-            Alert.present(error.localizedDescription, on: UIViewController.topViewController)
+            Alert.present(message: error.localizedDescription, on: UIViewController.topViewController)
         }
         super.init()
         

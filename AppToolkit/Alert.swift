@@ -71,23 +71,11 @@ public class Alert: NSObject {
         return Bundle.main.infoDictionary!["CFBundleDisplayName"] as? String ?? Bundle.main.infoDictionary!["CFBundleName"] as! String
     }()
     
-    @discardableResult @objc public static func present(_ message: String?, on viewController: UIViewController?) -> UIAlertController {
-        return present(title: defaultTitle, message: message, on: viewController)
+    @discardableResult public static func present(title: String? = defaultTitle, message: String?, cancel: String? = nil, other: [(String, (()->())?)] = [], on viewController: UIViewController?) -> UIAlertController {
+        return present(title: title, message: message, cancel: (cancel ?? "OK", nil), other: other, on: viewController)
     }
     
-    @discardableResult @objc public static func present(title: String?, message: String?, on viewCotnroller: UIViewController?) -> UIAlertController {
-        return present(title: title, message: message, cancel: ("OK", nil), other: [], on: viewCotnroller)
-    }
-    
-    @discardableResult public static func present(_ message: String?, cancel: String, other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
-        return present(message, cancel: (cancel, nil), other: other, on: viewController)
-    }
-    
-    @discardableResult public static func present(_ message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
-        return present(title: defaultTitle, message: message, cancel: cancel, other: other, on: viewController)
-    }
-    
-    @discardableResult public static func present(title: String?, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
+    @discardableResult public static func present(title: String? = defaultTitle, message: String?, cancel: (String, (()->())?), other: [(String, (()->())?)], on viewController: UIViewController?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancel.0, style: .cancel) { (_) in
             cancel.1?()
@@ -222,7 +210,7 @@ public extension Alert {
         let others: [(String, (()->())?)] = other.map { (other) in
             return (other.title, other.closure)
         }
-        return present(message, cancel: (cancel.title, cancel.closure), other: others, on: viewController)
+        return present(title: title, message: message, cancel: (cancel.title, cancel.closure), other: others, on: viewController)
     }
     
     typealias ActionBlock = ()->()
