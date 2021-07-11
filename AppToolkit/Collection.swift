@@ -214,8 +214,6 @@ open class Collection: StaticSetupObject {
             noObjectsView.rightAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.rightAnchor).isActive = true
             noObjectsView.topAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.topAnchor).isActive = true
             noObjectsView.bottomAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.bottomAnchor).isActive = true
-            noObjectsView.heightAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.heightAnchor).isActive = true
-            noObjectsView.widthAnchor.constraint(equalTo: collection.safeAreaLayoutGuide.widthAnchor).isActive = true
             
         } else {
             noObjectsView.removeFromSuperview()

@@ -229,8 +229,12 @@ open class Table: StaticSetupObject {
         if delegate?.shouldShowNoData?(objects: resultObjects, table: self) ??
             (type(of: self).defaultDelegate?.shouldShowNoData?(objects: resultObjects, table: self) ?? (objects.count == 0)) {
             
-            noObjectsView.frame = CGRect(x: 0, y: 0, width: table.frame.size.width, height: table.frame.size.height)
             table.addSubview(noObjectsView)
+            noObjectsView.translatesAutoresizingMaskIntoConstraints = false
+            noObjectsView.leftAnchor.constraint(equalTo: table.safeAreaLayoutGuide.leftAnchor).isActive = true
+            noObjectsView.rightAnchor.constraint(equalTo: table.safeAreaLayoutGuide.rightAnchor).isActive = true
+            noObjectsView.topAnchor.constraint(equalTo: table.safeAreaLayoutGuide.topAnchor).isActive = true
+            noObjectsView.bottomAnchor.constraint(equalTo: table.safeAreaLayoutGuide.bottomAnchor).isActive = true
         } else {
             noObjectsView.removeFromSuperview()
         }
