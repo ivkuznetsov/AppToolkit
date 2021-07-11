@@ -251,7 +251,7 @@ open class Table: StaticSetupObject {
             var resIndex: Int?
             
             if let cell = $0 as? TCellObjectHolding {
-                if let object = cell.object, let index = objects.firstIndex(of: object) {
+                if let object = cell.object as? AnyHashable, let index = objects.firstIndex(of: object) {
                     resIndex = index
                     
                     let createCell = self.delegate?.createCell?(object: object, table: self) ??

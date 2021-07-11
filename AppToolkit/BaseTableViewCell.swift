@@ -10,7 +10,7 @@ import UIKit
 
 @objc public protocol TCellObjectHolding: NSObjectProtocol {
     
-    var object: AnyHashable? { get set }
+    var object: Any? { get set }
 }
 
 @objc public extension UITableViewCell {
@@ -41,7 +41,7 @@ import UIKit
 @objc(ATBaseTableViewCell)
 open class BaseTableViewCell: UITableViewCell, TCellObjectHolding {
     
-    open var object: AnyHashable?
+    open var object: Any?
     
     open override func awakeFromNib() {
         super.awakeFromNib()
