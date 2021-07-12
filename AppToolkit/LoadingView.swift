@@ -30,7 +30,10 @@ open class LoadingView : UIView {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.backgroundColor = color
+            
+            if !showBackground {
+                self?.backgroundColor = color
+            }
             self?.addFadeTransition()
             if let wSelf = self, wSelf.progressIndicator?.isHidden != false {
                 wSelf.indicator.isHidden = false
