@@ -14,7 +14,7 @@ public extension UIViewController {
         var topVC: UIViewController?
         
         if let shared = UIApplication.value(forKey: "sharedApplication") as? UIApplication {
-            topVC = shared.delegate?.window??.rootViewController
+            topVC = shared.keyWindow?.rootViewController ?? shared.delegate?.window??.rootViewController
         }
         
         while topVC?.presentedViewController != nil {
