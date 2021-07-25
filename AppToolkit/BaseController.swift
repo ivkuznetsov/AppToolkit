@@ -81,6 +81,8 @@ open class BaseController: UIViewController, UIViewControllerRestoration {
                 nc.dismiss(animated: true, completion: nil)
             } else if let parentVC = self.parent, let nc = parentVC.navigationController, nc.presentingViewController != nil {
                 nc.dismiss(animated: true, completion: nil)
+            } else {
+                nc.popViewController(animated: true)
             }
         } else {
             self.dismiss(animated: true, completion: nil)
