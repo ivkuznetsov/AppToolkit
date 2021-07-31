@@ -29,7 +29,7 @@ open class LoadingView : UIView {
             backgroundColor = .clear
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             
             if !showBackground {
                 self?.backgroundColor = color
