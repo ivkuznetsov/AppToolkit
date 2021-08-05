@@ -10,7 +10,7 @@ public class Keychain {
         return [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
             kSecValueData as String: password
             ] as CFDictionary
     }
@@ -34,7 +34,7 @@ public class Keychain {
     private static func updateQuery(password: Data) -> CFDictionary {
         return [
             kSecValueData as String: password,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
             ] as CFDictionary
     }
 
