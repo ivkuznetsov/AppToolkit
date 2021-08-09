@@ -14,12 +14,18 @@ open class WebViewController: BaseController, WKNavigationDelegate {
     open var onlyLandscape: Bool = false
     public static var processNavigation: ((URL)->())?
     open var url: URL?
+    open var request: URLRequest?
     open var html: String?
     open var webView = WKWebView()
     open var indicator = UIActivityIndicatorView(style: .gray)
     fileprivate var firstLoad: Bool = true
     
     fileprivate weak var failView: FailedView?
+    
+    public init(request: URLRequest) {
+        self.request = request
+        super.init()
+    }
     
     public init(url: URL) {
         self.url = url
@@ -50,7 +56,9 @@ open class WebViewController: BaseController, WKNavigationDelegate {
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: [], metrics: nil, views: ["webView":webView]))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: indicator)
         
-        if let url = url {
+        if let request = request {
+            webView.load(request)
+        } else if let url = url {
             if FileManager.default.fileExists(atPath: url.path) {
                 if let string = try? String.init(contentsOf: url) {
                     webView.loadHTMLString(string, baseURL: url.deletingLastPathComponent())
