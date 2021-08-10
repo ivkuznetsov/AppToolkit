@@ -5,6 +5,8 @@
 //  Copyright © 2019 Ilya Kuznetsov.
 //
 
+import UIKit
+
 /// An abstract protocol that defines an alignment.
 protocol Alignment {}
 

@@ -182,12 +182,12 @@ open class Collection: StaticSetupObject {
         }
             
         if !deferredUpdate {
-            let toReload = collection.reload(animated: animated, oldData: oldObjects, data: resultObjects, completion: completion, updateObjects: {
+            let toReload = collection.reload(animated: animated, oldData: oldObjects, newData: resultObjects, completion: completion, updateObjects: {
                 self.objects = resultObjects
             })
             collection.layoutIfNeeded()
             
-            if let toReload = toReload, animated {
+            if animated {
                 toReload.forEach {
                     if let cell = collection.cellForItem(at: $0), cell as? ContainerCollectionCell == nil {
                         let object = resultObjects[$0.item] as Any // swift bug workaround

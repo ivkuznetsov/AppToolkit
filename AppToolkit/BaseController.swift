@@ -33,7 +33,7 @@ open class BaseController: UIViewController, UIViewControllerRestoration {
     open func commonInit() {
         if self is Restorable {
             if restorationIdentifier == nil {
-                restorationIdentifier = className()
+                restorationIdentifier = NSStringFromClass(type(of: self))
             }
             restorationClass = type(of: self)
         }
@@ -46,7 +46,7 @@ open class BaseController: UIViewController, UIViewControllerRestoration {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self is Restorable && navigationController?.restorationIdentifier == nil {
-            navigationController?.restorationIdentifier = "Navigation" + className()
+            navigationController?.restorationIdentifier = "Navigation" + NSStringFromClass(type(of: self))
         }
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2021 Ilya Kuznetsov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public extension UIViewController {
     

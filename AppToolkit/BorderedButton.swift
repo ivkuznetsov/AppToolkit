@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ilya Kuznetsov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @IBDesignable
 @objc(ATBorderedButton)

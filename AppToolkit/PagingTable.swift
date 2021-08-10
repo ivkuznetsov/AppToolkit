@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ilya Kuznetsov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objc(ATPagingTable)
 open class PagingTable: Table {
