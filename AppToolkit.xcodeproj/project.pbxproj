@@ -114,7 +114,6 @@
 		D70AE4AD26C2878300F37123 /* NSBezierPath+SDRoundedCorners.h in Headers */ = {isa = PBXBuildFile; fileRef = D78DEACD25C5AC8F00821DB7 /* NSBezierPath+SDRoundedCorners.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D70AE4AE26C2878300F37123 /* SDAsyncBlockOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D78DEAD225C5AC8F00821DB7 /* SDAsyncBlockOperation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D70AE4AF26C2878300F37123 /* SDDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D78DEAD725C5AC8F00821DB7 /* SDDeviceHelper.m */; };
-		D70AE4B026C2878300F37123 /* SDInternalMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D78DEAD025C5AC8F00821DB7 /* SDInternalMacros.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D70AE4B126C2878300F37123 /* UIColor+SDHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D78DEACC25C5AC8F00821DB7 /* UIColor+SDHexString.m */; };
 		D70AE4B226C2878300F37123 /* SDImageCachesManagerOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D78DEACE25C5AC8F00821DB7 /* SDImageCachesManagerOperation.m */; };
 		D70AE4B326C2878300F37123 /* SDImageIOAnimatedCoderInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D78DEAD625C5AC8F00821DB7 /* SDImageIOAnimatedCoderInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -250,10 +249,10 @@
 		D70AE53A26C2893400F37123 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77199A02024CA89006E5C8E /* WebViewController.swift */; };
 		D70AE56126C2925B00F37123 /* UICollectionView+Reloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AE56026C2925B00F37123 /* UICollectionView+Reloading.swift */; };
 		D70AE56226C2925B00F37123 /* UICollectionView+Reloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AE56026C2925B00F37123 /* UICollectionView+Reloading.swift */; };
-		D70AE56326C297FE00F37123 /* AppToolkit.h in Headers */ = {isa = PBXBuildFile; fileRef = 592060EB1E38E26C0066BE0D /* AppToolkit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D70AE56526C2987400F37123 /* AppToolkitWithoutLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = D70AE56426C2987400F37123 /* AppToolkitWithoutLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D70AE56726C298A400F37123 /* Shared.h in Headers */ = {isa = PBXBuildFile; fileRef = D70AE56626C2988200F37123 /* Shared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D70AE56826C298A500F37123 /* Shared.h in Headers */ = {isa = PBXBuildFile; fileRef = D70AE56626C2988200F37123 /* Shared.h */; };
+		D70AE57B26C2B37600F37123 /* SDInternalMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D78DEAD025C5AC8F00821DB7 /* SDInternalMacros.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D70F8AB420F5FEB6002ADD30 /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70F8AB320F5FEB6002ADD30 /* String+Validation.swift */; };
 		D7130AC623CFA48E00627271 /* FooterLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7130AC423CFA48E00627271 /* FooterLoadingView.xib */; };
 		D7130AC723CFA48E00627271 /* FooterLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7130AC523CFA48E00627271 /* FooterLoadingView.swift */; };
@@ -1334,7 +1333,6 @@
 				D70AE49726C2876C00F37123 /* NSURL+SSToolkitAdditions.h in Headers */,
 				D70AE4DA26C2881100F37123 /* SDWebImageDownloaderConfig.h in Headers */,
 				D70AE51A26C2881200F37123 /* SDImageIOCoder.h in Headers */,
-				D70AE56326C297FE00F37123 /* AppToolkit.h in Headers */,
 				D70AE4EF26C2881100F37123 /* SDImageGIFCoder.h in Headers */,
 				D70AE48326C2876C00F37123 /* NSDateAdditions.h in Headers */,
 				D70AE49326C2876C00F37123 /* NSObject+ClassName.h in Headers */,
@@ -1343,6 +1341,7 @@
 				D70AE4DB26C2881100F37123 /* SDGraphicsImageRenderer.h in Headers */,
 				D70AE4D126C2881100F37123 /* SDImageCache.h in Headers */,
 				D70AE52626C2881200F37123 /* SDImageCachesManager.h in Headers */,
+				D70AE57B26C2B37600F37123 /* SDInternalMacros.h in Headers */,
 				D70AE51726C2881200F37123 /* NSData+ImageContentType.h in Headers */,
 				D70AE50226C2881100F37123 /* SDImageCacheConfig.h in Headers */,
 				D70AE4F326C2881100F37123 /* SDWebImageCacheKeyFilter.h in Headers */,
@@ -1360,7 +1359,6 @@
 				D70AE52226C2881200F37123 /* SDImageTransformer.h in Headers */,
 				D70AE50926C2881200F37123 /* UIView+WebCache.h in Headers */,
 				D70AE4D426C2881100F37123 /* UIImage+MultiFormat.h in Headers */,
-				D70AE4B026C2878300F37123 /* SDInternalMacros.h in Headers */,
 				D70AE50F26C2881200F37123 /* UIImage+Metadata.h in Headers */,
 				D70AE48F26C2876C00F37123 /* UIImage+Tint.h in Headers */,
 				D70AE4CE26C2881100F37123 /* SDWebImageDownloaderRequestModifier.h in Headers */,
