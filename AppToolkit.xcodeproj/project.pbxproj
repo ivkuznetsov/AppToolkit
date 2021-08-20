@@ -435,6 +435,12 @@
 		D7949C541FCE15C3000D2C4F /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C531FCE15C3000D2C4F /* AppNotification.swift */; };
 		D7949C561FCE1725000D2C4F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C551FCE1725000D2C4F /* NotificationManager.swift */; };
 		D7949C581FCEB081000D2C4F /* NSManagedObject+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */; };
+		D79C452C26CD354C000531E6 /* FloatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C452B26CD354C000531E6 /* FloatTextField.swift */; };
+		D79C452D26CD354C000531E6 /* FloatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C452B26CD354C000531E6 /* FloatTextField.swift */; };
+		D79C452F26CD3558000531E6 /* ValidatableField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C452E26CD3558000531E6 /* ValidatableField.swift */; };
+		D79C453026CD3558000531E6 /* ValidatableField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C452E26CD3558000531E6 /* ValidatableField.swift */; };
+		D79C453226CD356C000531E6 /* IntTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C453126CD356C000531E6 /* IntTextField.swift */; };
+		D79C453326CD356C000531E6 /* IntTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C453126CD356C000531E6 /* IntTextField.swift */; };
 		D7AE7CF724D85AAE000B1118 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CB5CE51FE5BBD900341E60 /* Alert.swift */; };
 		D7B4CA5B25D172AD0019E92F /* ImagePreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B4CA5A25D172AD0019E92F /* ImagePreviewCell.swift */; };
 		D7B4CA6525D1732D0019E92F /* ImagePreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B4CA6425D1732D0019E92F /* ImagePreviewCell.xib */; };
@@ -705,6 +711,9 @@
 		D7949C531FCE15C3000D2C4F /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		D7949C551FCE1725000D2C4F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D7949C571FCEB081000D2C4F /* NSManagedObject+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Notifications.swift"; sourceTree = "<group>"; };
+		D79C452B26CD354C000531E6 /* FloatTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatTextField.swift; sourceTree = "<group>"; };
+		D79C452E26CD3558000531E6 /* ValidatableField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableField.swift; sourceTree = "<group>"; };
+		D79C453126CD356C000531E6 /* IntTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntTextField.swift; sourceTree = "<group>"; };
 		D7B4CA5A25D172AD0019E92F /* ImagePreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewCell.swift; sourceTree = "<group>"; };
 		D7B4CA6425D1732D0019E92F /* ImagePreviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePreviewCell.xib; sourceTree = "<group>"; };
 		D7BDA8D524FF974D0015795F /* PreviewScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScrollView.swift; sourceTree = "<group>"; };
@@ -869,6 +878,9 @@
 		592061431E3A266F0066BE0D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				D79C452E26CD3558000531E6 /* ValidatableField.swift */,
+				D79C453126CD356C000531E6 /* IntTextField.swift */,
+				D79C452B26CD354C000531E6 /* FloatTextField.swift */,
 				D730FD9F1FD6EF54002D9F61 /* FadeButton.swift */,
 				D730FDA11FD6F0E0002D9F61 /* BorderedButton.swift */,
 				D730FD9D1FD6EC66002D9F61 /* SeparatorView.swift */,
@@ -1575,6 +1587,7 @@
 				D7949C291FCB5CF7000D2C4F /* AlerBarView.swift in Sources */,
 				D78DEAF525C5AC8F00821DB7 /* SDImageIOAnimatedCoder.m in Sources */,
 				D78DEBA925C5AC8F00821DB7 /* SDAssociatedObject.m in Sources */,
+				D79C452F26CD3558000531E6 /* ValidatableField.swift in Sources */,
 				D70F8AB420F5FEB6002ADD30 /* String+Validation.swift in Sources */,
 				592061BE1E3B7F0F0066BE0D /* ATInputHelper.m in Sources */,
 				D7949C261FCB3F9E000D2C4F /* OperationHelper.swift in Sources */,
@@ -1604,6 +1617,7 @@
 				D7E1BA621FEB04FE00BE8266 /* TabsView.swift in Sources */,
 				D78DEBA425C5AC8F00821DB7 /* NSBezierPath+SDRoundedCorners.m in Sources */,
 				D7949C461FCDB691000D2C4F /* FaliedView.swift in Sources */,
+				D79C453226CD356C000531E6 /* IntTextField.swift in Sources */,
 				D7CB5CE61FE5BBD900341E60 /* Alert.swift in Sources */,
 				D7949C4A1FCDE44A000D2C4F /* ContainerCollectionCell.swift in Sources */,
 				D7949C2D1FCB6112000D2C4F /* PagingLoader.swift in Sources */,
@@ -1622,6 +1636,7 @@
 				D730FDA01FD6EF54002D9F61 /* FadeButton.swift in Sources */,
 				D7949C241FCB3A5D000D2C4F /* BaseController.swift in Sources */,
 				D78DEB9F25C5AC8F00821DB7 /* SDDeviceHelper.m in Sources */,
+				D79C452C26CD354C000531E6 /* FloatTextField.swift in Sources */,
 				D7949C401FCD8DB7000D2C4F /* LoadingBarView.swift in Sources */,
 				D7949C4E1FCDE6E7000D2C4F /* Collection.swift in Sources */,
 				D7F324AD1FDA9AAC0038F1C4 /* OptionsView.swift in Sources */,
@@ -1700,6 +1715,7 @@
 				D70AE49526C2876C00F37123 /* NSData+SSToolkitAdditions.m in Sources */,
 				D70AE45B26C2871F00F37123 /* PagingLoader.swift in Sources */,
 				D70AE4EA26C2881100F37123 /* SDWebImageManager.m in Sources */,
+				D79C452D26CD354C000531E6 /* FloatTextField.swift in Sources */,
 				D70AE53926C2893100F37123 /* PreviewScrollView.swift in Sources */,
 				D70AE46F26C2873400F37123 /* AppNotification.swift in Sources */,
 				D70AE4E826C2881100F37123 /* UIView+WebCacheOperation.m in Sources */,
@@ -1787,6 +1803,7 @@
 				D70AE50126C2881100F37123 /* SDWebImageIndicator.m in Sources */,
 				D70AE52D26C2881200F37123 /* UIImageView+HighlightedWebCache.m in Sources */,
 				D70AE48B26C2876C00F37123 /* UIImage+ProportionalFill.m in Sources */,
+				D79C453026CD3558000531E6 /* ValidatableField.swift in Sources */,
 				D70AE45726C2871F00F37123 /* PagingCollection.swift in Sources */,
 				D70AE4F026C2881100F37123 /* SDGraphicsImageRenderer.m in Sources */,
 				D70AE4E226C2881100F37123 /* UIImage+GIF.m in Sources */,
@@ -1798,6 +1815,7 @@
 				D70AE48426C2876C00F37123 /* UIImage+Tint.m in Sources */,
 				D70AE46026C2872400F37123 /* TabsCell.swift in Sources */,
 				D70AE47326C2873D00F37123 /* FadeButton.swift in Sources */,
+				D79C453326CD356C000531E6 /* IntTextField.swift in Sources */,
 				D70AE50826C2881200F37123 /* SDImageCache.m in Sources */,
 				D70AE46726C2872C00F37123 /* Collection.swift in Sources */,
 				D70AE46D26C2873400F37123 /* Observable.swift in Sources */,
