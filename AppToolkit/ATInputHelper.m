@@ -280,10 +280,14 @@
     
     UIEdgeInsets insets = _scrollView.contentInset;
     insets.bottom = bottomOffset + _additionalBottomInset;
+    if ([_delegate respondsToSelector:@selector(customInsets:)]) {
+        insets = [_delegate customInsets:insets];
+    }
     _scrollView.contentInset = insets;
     
     insets = _scrollView.scrollIndicatorInsets;
     insets.bottom = bottomOffset + _additionalBottomInset;
+    
     _scrollView.scrollIndicatorInsets = insets;
     
     if ([_delegate respondsToSelector:@selector(animateInsetChangeWithInsets:)]) {

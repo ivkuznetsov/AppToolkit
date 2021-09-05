@@ -26,6 +26,7 @@
 @optional
 - (void)didSuccessInput;
 - (BOOL)isInputValid:(UIView *)input;
+- (UIEdgeInsets)customInsets:(UIEdgeInsets)originalInsets; // performed in animation block
 - (void)animateInsetChangeWithInsets:(UIEdgeInsets)insets; // performed in animation block
 - (CGFloat)targetOffsetOnKeyboardHide:(CGFloat)originalOffset input:(UIView *)input;
 - (CGFloat)targetOffsetOnKeyboardShow:(CGFloat)originalOffset input:(UIView *)input insets:(UIEdgeInsets)insets;
