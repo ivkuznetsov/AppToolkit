@@ -48,7 +48,7 @@
 #endif
     _locationManager.distanceFilter = 0.01;
     _authorizationStatus = CLLocationManager.authorizationStatus;
-    if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+    if (CLLocationManager.locationServicesEnabled && [_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         
 #if TARGET_OS_IPHONE
         [_locationManager requestWhenInUseAuthorization];
